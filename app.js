@@ -69,7 +69,7 @@ const App = {
                         await connectDatabase();
                         app.use(handleError);
                         app.listen(PORT, () => {
-                                console.log(`[ERP-API] se ejecuta en http://localhost:${PORT}`);
+                                console.log(`[ERP-API-P-A] se ejecuta en http://localhost:${PORT}`);
                         });
                 }
 
