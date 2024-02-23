@@ -4,7 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 // Rutas
-import storeRoutes from './src/routes/store.routes.js';
+import productsRoutes from './src/routes/products.routes.js';
 
 
 // Base de datos
@@ -34,7 +34,7 @@ const App = {
 
                 // Initialize Routes
 
-                app.use('/api/v1/almacen', storeRoutes);
+                app.use('/api/v1/productos', productsRoutes);
                 
                 app.use('/', (req, res) => {
                         res.status(404).json({message:'Request not found'})
