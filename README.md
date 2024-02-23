@@ -42,7 +42,6 @@ DB_PORT=3306
 $ npm run dev
 
 # Formatear el código en general
-
 $ npm run lint
 ```
 
@@ -54,6 +53,8 @@ $ npm run lint
 │   ├───controllers
 │   │
 │   ├───database
+│   │
+│   ├───middlewares
 │   │
 │   ├───models
 │   │
