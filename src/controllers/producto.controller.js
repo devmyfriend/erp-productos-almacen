@@ -16,7 +16,7 @@ const findAll = async (req, res) => {
 		});
 
 		if (data.length < 1) {
-			return res.status(404).json({ message: 'No hay datos disponibles' });
+			return res.status(404).json({ error: 'No hay datos disponibles' });
 		}
 
 		return res.status(200).json({ response: data });

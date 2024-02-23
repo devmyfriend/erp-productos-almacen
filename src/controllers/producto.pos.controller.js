@@ -19,7 +19,7 @@ const findAll = async (req, res) => {
 		});
 
 		if (data.length < 1) {
-			return res.status(404).json({ message: 'No hay datos disponibles' });
+			return res.status(404).json({ error: 'No hay datos disponibles' });
 		}
 
 		return res.status(200).json({ response: data });
@@ -27,7 +27,7 @@ const findAll = async (req, res) => {
 		console.log(error);
 
 		return res.status(500).json({
-			message: 'Error interno del servidor',
+			error: 'Error interno del servidor',
 		});
 	}
 };
@@ -41,7 +41,7 @@ const create = async (req, res) => {
 		if (productFound.exist) {
 			return res
 				.status(409)
-				.json({ message: 'El código del producto ya esta en uso' });
+				.json({ error: 'El código del producto ya esta en uso' });
 		}
 
 		const newProduct = Object.assign(data, { TipoProductoId: 2 });
@@ -56,7 +56,7 @@ const create = async (req, res) => {
 		console.log(error);
 
 		return res.status(500).json({
-			message: 'Error al crear el producto',
+			error: 'Error al crear el producto',
 		});
 	}
 };
