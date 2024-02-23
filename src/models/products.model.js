@@ -16,6 +16,10 @@ export const ProductModel = Connection.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		DescripcionProducto: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 
 		UnidadBase: {
 			type: DataTypes.NUMBER,

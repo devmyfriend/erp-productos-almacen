@@ -1,5 +1,5 @@
-import { methods } from '../controllers/products.controller.js';
 import { Router } from 'express';
+import { methods } from '../controllers/products.controller.js';
 
 const router = Router();
 
@@ -35,7 +35,7 @@ const router = Router();
  *                       TipoProductoId:
  *                         type: string
  *                         example: "1"
- *                       NombreProducto:  
+ *                       NombreProducto:
  *                         type: string
  *                         example: "COCACOLA"
  *                       LineaId:
@@ -46,7 +46,6 @@ const router = Router();
  *                         format: date-time
  *                         example: "2024-02-23T20:29:41.000Z"
  */
-
 
 router.get('/', methods.findAll);
 

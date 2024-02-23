@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 
-export const productoValidationSchema = [
+export const createProductPosSchema = [
 	body('CodigoProducto')
 		.notEmpty()
 		.isString()
