@@ -37,6 +37,6 @@ const router = Router();
  *                     type: string
  *                     example: "GYM 1"
  */
-router.get('/', methods.test);
+router.get('/', methods.findAll);
 
 export default router;

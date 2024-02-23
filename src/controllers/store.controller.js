@@ -1,14 +1,24 @@
 
+import { ProductModel } from '../models/products.model.js';
 
+const findAll = async (req, res) => {
+	try {
+		const data = await ProductModel.findAll({
+			where: {
+				Borrado: 0,
+			},
+		});
 
-const test = ( req, res=Response )=>{
-    console.log( 'Esto es una prueba de conexión del backend')
-    return res.status(200).send({
-         status: 'Ok',
-         message: 'Esto es una prueba de conexión del backend'
-    })
-}
+		return res.status(200).json({ response: data } );
+	} catch (error) {
+		console.log(error);
 
-export const methods ={
-    test
-}
+		return res.status(500).json({
+			message: 'Internal server error',
+		});
+	}
+};
+
+export const methods = {
+	findAll,
+};
