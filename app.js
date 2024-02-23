@@ -6,6 +6,8 @@ import morgan from 'morgan';
 // Rutas
 import productsRoutes from './src/routes/products.routes.js';
 
+import productsPosRoutes from './src/routes/products.pos.routes.js';
+
 
 // Base de datos
 import { Connection } from './src/database/mariadb.database.js';
@@ -35,6 +37,9 @@ const App = {
                 // Initialize Routes
 
                 app.use('/api/v1/productos', productsRoutes);
+
+                app.use('/api/v1/productos/pos', productsPosRoutes);
+                
                 
                 app.use('/', (req, res) => {
                         res.status(404).json({message:'Request not found'})

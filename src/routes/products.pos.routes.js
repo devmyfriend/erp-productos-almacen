@@ -1,24 +1,25 @@
-import { methods } from '../controllers/products.controller.js';
+import { methods } from '../controllers/products.pos.controller.js';
 import { Router } from 'express';
 
 const router = Router();
 
+
 /**
  * @swagger
  * tags:
- *   - name: Catálogo de productos
- *     description: Operaciones relacionadas con el Catálogo General de productos
+ *   - name: Productos inventariables
+ *     description: Operaciones relacionadas con Productos inventariables
  */
 
 /**
  * @swagger
- * /api/v1/productos:
+ * /api/v1/productos/pos:
  *   get:
- *     summary: Obtener una lista general del Catálogo de productos
- *     tags: [Catálogo de productos]
+ *     summary: Obtener una lista general de Productos inventariables
+ *     tags: [Productos inventariables]
  *     responses:
  *       200:
- *         description: Lista del Catálogo de productos
+ *         description: Lista de Productos inventariables
  *         content:
  *           application/json:
  *             schema:
@@ -37,7 +38,10 @@ const router = Router();
  *                         example: "1"
  *                       NombreProducto:  
  *                         type: string
- *                         example: "COCACOLA"
+ *                         example: "COCACOLA" 
+ *                       DescripcionProducto:  
+ *                         type: string
+ *                         example: "Es una cocacola de 600"
  *                       LineaId:
  *                         type: integer
  *                         example: 1
