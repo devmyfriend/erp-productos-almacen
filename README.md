@@ -1,6 +1,13 @@
 # ERP-API
 
 ## Instalación
+#### Nota:
+```bash
+# Se debe contar con node.js 18.0 o superiror, puede descargar el recurso en:
+
+https://nodejs.org/en 
+```
+
 ### 1. Clonar el repositorio
     $ git clone https://github.com/devmyfriend/erp-productos-almacen.git
 ### 2. Dependencias
