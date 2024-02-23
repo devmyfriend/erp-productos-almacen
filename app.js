@@ -40,7 +40,7 @@ const App = {
 		app.use('/api/v1/productos/pos', productsPosRoutes);
 
 		app.use('/', (req, res) => {
-			res.status(404).json({ message: 'Ruta no encontrada' });
+			res.status(404).json({ error: 'error en la solicitud' });
 		});
 
 		async function connectDatabase() {
