@@ -3,7 +3,7 @@
 ## Instalación
 #### Nota:
 ```bash
-# Se debe contar con node.js 18.0 o superiror, puede descargar el recurso en:
+# Se debe contar con node js 18.0 o superiror en el equipo, puede descargar el recurso en:
 
 https://nodejs.org/en 
 ```
