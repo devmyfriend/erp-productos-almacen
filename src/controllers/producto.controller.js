@@ -1,4 +1,4 @@
-import { ProductModel } from '../models/products.model.js';
+import { ProductModel } from '../models/producto.model.js';
 
 const findAll = async (req, res) => {
 	try {
@@ -24,7 +24,7 @@ const findAll = async (req, res) => {
 		console.log(error);
 
 		return res.status(500).json({
-			message: 'Internal server error',
+			message: 'Error interno del servidor',
 		});
 	}
 };

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { methods } from '../controllers/products.pos.controller.js';
+import { methods } from '../controllers/producto.pos.controller.js';
 import { validateSchema } from '../middlewares/express-validator/index.js';
 import { createProductPosSchema } from '../schemas/pos/index.js';
 

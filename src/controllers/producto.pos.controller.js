@@ -1,5 +1,5 @@
-import { findItemByPk } from '../middlewares/products/index.js';
-import { ProductModel } from '../models/products.model.js';
+import { findItemByPk } from '../middlewares/producto/index.js';
+import { ProductModel } from '../models/producto.model.js';
 
 const findAll = async (req, res) => {
 	try {
@@ -14,7 +14,7 @@ const findAll = async (req, res) => {
 			],
 			where: {
 				Borrado: 0,
-				TipoProductoId: 2, // -> prodcutos que se venden a publico
+				TipoProductoId: 2, // -> produCtos que se venden a publico
 			},
 		});
 
@@ -27,7 +27,7 @@ const findAll = async (req, res) => {
 		console.log(error);
 
 		return res.status(500).json({
-			message: 'Internal server error',
+			message: 'Error interno del servidor',
 		});
 	}
 };
@@ -36,9 +36,9 @@ const create = async (req, res) => {
 	try {
 		const data = req.body;
 
-		const prductFound = await findItemByPk(data.CodigoProducto, 2);
+		const productFound = await findItemByPk(data.CodigoProducto, 2);
 
-		if (prductFound.exist) {
+		if (productFound.exist) {
 			return res
 				.status(409)
 				.json({ message: 'El código del producto ya esta en uso' });
@@ -48,12 +48,10 @@ const create = async (req, res) => {
 
 		const createProduct = await ProductModel.create(newProduct);
 
-		return res
-			.status(200)
-			.json({
-				message: 'Se ha creado el producto',
-				info: [{ CodigoProducto: createProduct.dataValues.CodigoProducto }],
-			});
+		return res.status(200).json({
+			message: 'Se ha creado el producto',
+			info: [{ CodigoProducto: createProduct.dataValues.CodigoProducto }],
+		});
 	} catch (error) {
 		console.log(error);
 

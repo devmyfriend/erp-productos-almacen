@@ -4,9 +4,9 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 // Rutas
-import productsRoutes from './src/routes/products.routes.js';
+import productsRoutes from './src/routes/producto.routes.js';
 
-import productsPosRoutes from './src/routes/products.pos.routes.js';
+import productsPosRoutes from './src/routes/producto.pos.routes.js';
 
 
 // Base de datos

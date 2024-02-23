@@ -1,4 +1,4 @@
-import { ProductModel } from '../../models/products.model.js';
+import { ProductModel } from '../../models/producto.model.js';
 
 /*
 TODO -> VALIDAR QUE ESTAS LLAVES EXISTAN 
