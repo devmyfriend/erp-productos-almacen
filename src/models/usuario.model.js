@@ -1,63 +1,43 @@
 import { DataTypes } from 'sequelize';
 import { Connection } from '../database/mariadb.database.js';
-export const ProductModel = Connection.define(
-	'Products',
+export const UserModel = Connection.define(
+	'User',
 	{
-		CodigoProducto: {
-			type: DataTypes.STRING,
+		UsuarioId: {
+			type: DataTypes.NUMBER,
 			primaryKey: true,
 			allowNull: false,
 		},
-		TipoProductoId: {
-			type: DataTypes.INTEGER,
+		TipoUsuarioId: {
+			type: DataTypes.NUMBER,
 			allowNull: false,
 		},
-		NombreProducto: {
+		NickName: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		DescripcionProducto: {
+		ApellidoPaterno: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-
-		UnidadBase: {
-			type: DataTypes.NUMBER,
-			allowNull: false,
-		},
-		UnidadCompra: {
-			type: DataTypes.NUMBER,
-			allowNull: false,
-		},
-		UnidadVenta: {
-			type: DataTypes.NUMBER,
-			allowNull: false,
-		},
-		UnidadFiscal: {
-			type: DataTypes.NUMBER,
-			allowNull: false,
-		},
-		ClaveProductoServicio: {
+		ApellidoMaterno: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		ClaveUnidadSat: {
+		Nombres: {
 			type: DataTypes.STRING,
-		},
-		ImpuestoCompuestoId: {
-			type: DataTypes.NUMBER,
 			allowNull: false,
 		},
-		LineaId: {
-			type: DataTypes.NUMBER,
+		ClaveUsuario: {
+			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		CategoriaId_1: {
+		Foto: {
 			type: DataTypes.STRING,
 			allowNull: true,
 		},
-		CategoriaId_2: {
-			type: DataTypes.STRING,
+		Borrado: {
+			type: DataTypes.BOOLEAN,
 			allowNull: true,
 		},
 		CreadoPor: {
@@ -68,23 +48,24 @@ export const ProductModel = Connection.define(
 		},
 		ActualizadoPor: {
 			type: DataTypes.INTEGER,
+			allowNull: true,
 		},
 		ActualizadoEn: {
 			type: DataTypes.DATE,
+			allowNull: true,
 		},
 		BorradoPor: {
 			type: DataTypes.INTEGER,
+			allowNull: true,
 		},
 
 		BorradoEn: {
 			type: DataTypes.DATE,
-		},
-		Borrado: {
-			type: DataTypes.BOOLEAN,
+			allowNull: true,
 		},
 	},
 	{
-		tableName: 'cat_Productos',
+		tableName: 'Usuario',
 		timestamps: false,
 		freezeTableName: false,
 	},
