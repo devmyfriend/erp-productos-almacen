@@ -1,5 +1,6 @@
 import { LinetModel } from '../../models/linea.model.js';
 import { ProductModel } from '../../models/producto.model.js';
+import { UserModel } from '../../models/usuario.model.js';
 
 /*
 TODO -> VALIDAR QUE ESTAS LLAVES EXISTAN 
@@ -41,6 +42,29 @@ export const findLineById = async id_line => {
 		const item = await LinetModel.findOne({
 			where: {
 				LineaId: id_line,
+				Borrado: false,
+			},
+		});
+
+		if (!item) {
+			return { exist: false };
+		}
+
+		return { exist: true, data: item.dataValues };
+	} catch (error) {
+		console.log(error);
+
+		return {
+			message: 'Error interno del servidor',
+		};
+	}
+};
+
+export const findUserById = async id_user => {
+	try {
+		const item = await UserModel.findOne({
+			where: {
+				UsuarioId: id_user,
 				Borrado: false,
 			},
 		});

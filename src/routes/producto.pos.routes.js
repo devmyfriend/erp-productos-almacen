@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { methods } from '../controllers/producto.pos.controller.js';
 import { validateSchema } from '../middlewares/express-validator/index.js';
-import { createProductPosSchema } from '../schemas/pos/index.js';
+import * as schemas from '../schemas/pos/index.js';
 
 const router = Router();
 
@@ -135,7 +135,7 @@ router.get('/', methods.findAll);
  *                   type: string
  *                   description: Mensaje de confirmación.
  *                   example: "Se ha creado el producto"
- *                 info:
+ *                 response:
  *                   type: array
  *                   description: Información adicional sobre el producto creado.
  *                   items:
@@ -148,7 +148,12 @@ router.get('/', methods.findAll);
  *
  */
 
-router.post('/', createProductPosSchema, validateSchema, methods.create);
+router.post(
+	'/',
+	schemas.createProductPosSchema,
+	validateSchema,
+	methods.create,
+);
 
 /**
  * @swagger
@@ -246,6 +251,54 @@ router.post('/', createProductPosSchema, validateSchema, methods.create);
  *                         example: "PRD001"
  */
 
-router.put('/:id', methods.update);
+router.put(
+	'/:id',
+	schemas.updateProductPosSchema,
+	validateSchema,
+	methods.update,
+);
+
+/**
+ * @swagger
+ * /api/v1/productos/pos:
+ *   delete:
+ *     summary: Eliminar un Producto inventariable existente
+ *     tags: [Productos inventariables]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               CodigoProducto:
+ *                 type: string
+ *                 description: El código del producto a eliminar.
+ *                 example: "PRD001"
+ *
+ *               BorradoPor:
+ *                 type: number
+ *                 description: El usuario que elimino el prodcuto.
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: Producto eliminado exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de confirmación.
+ *                   example: "Se ha eliminado el producto"
+ */
+
+router.delete(
+	'/',
+	schemas.deleteProductPosSchema,
+	validateSchema,
+	methods.disable,
+);
 
 export default router;
