@@ -159,7 +159,7 @@ router.post(
  * @swagger
  * /api/v1/productos/servicio/{CodigoServicio}:
  *   put:
- *     summary: Actualizar un Producto inventariable existente
+ *     summary: Actualizar un servicio 
  *     tags: [Servicios POS]
  *     parameters:
  *       - in: path
@@ -178,7 +178,7 @@ router.post(
  *               NombreProducto:
  *                 type: string
  *                 description: El nuevo nombre del producto. Debe tener entre 5 y 50 caracteres.
- *                 example: "Producto actualizado"
+ *                 example: "Datos actualizado"
  *               DescripcionProducto:
  *                 type: string
  *                 description: La nueva descripción del producto. Debe tener entre 10 y 255 caracteres.
@@ -262,7 +262,7 @@ router.put(
  * @swagger
  * /api/v1/productos/servicio/borrar:
  *   delete:
- *     summary: Eliminar un Producto inventariable existente
+ *     summary: Eliminar un servicio
  *     tags: [Servicios POS]
  *     requestBody:
  *       required: true
