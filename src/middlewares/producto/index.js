@@ -1,3 +1,4 @@
+import { LinetModel } from '../../models/linea.model.js';
 import { ProductModel } from '../../models/producto.model.js';
 
 /*
@@ -11,7 +12,7 @@ TODO -> VALIDAR QUE ESTAS LLAVES EXISTAN
   CategoriaId_2	
 */
 
-export const findItemByPk = async (code, type) => {
+export const findItemByCode = async (code, type) => {
 	try {
 		const item = await ProductModel.findOne({
 			where: {
@@ -30,7 +31,30 @@ export const findItemByPk = async (code, type) => {
 		console.log(error);
 
 		return {
-			message: 'Internal server error',
+			message: 'Error interno del servidor',
+		};
+	}
+};
+
+export const findLineById = async id_line => {
+	try {
+		const item = await LinetModel.findOne({
+			where: {
+				LineaId: id_line,
+				Borrado: false,
+			},
+		});
+
+		if (!item) {
+			return { exist: false };
+		}
+
+		return { exist: true, data: item.dataValues };
+	} catch (error) {
+		console.log(error);
+
+		return {
+			message: 'Error interno del servidor',
 		};
 	}
 };

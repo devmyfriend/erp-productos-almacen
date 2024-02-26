@@ -1,4 +1,4 @@
-import { findItemByPk } from '../middlewares/producto/index.js';
+import { findItemByCode, findLineById } from '../middlewares/producto/index.js';
 import { ProductModel } from '../models/producto.model.js';
 
 const findAll = async (req, res) => {
@@ -36,7 +36,7 @@ const create = async (req, res) => {
 	try {
 		const data = req.body;
 
-		const productFound = await findItemByPk(data.CodigoProducto, 2);
+		const productFound = await findItemByCode(data.CodigoProducto, 2);
 
 		if (productFound.exist) {
 			return res
@@ -61,7 +61,47 @@ const create = async (req, res) => {
 	}
 };
 
+const update = async (req, res) => {
+	try {
+		const prductId = req.params.id;
+		const data = req.body;
+
+		const lineFound = await findLineById(data.LineaId);
+		const productFound = await findItemByCode(prductId, 2);
+
+		if (!productFound.exist) {
+			return res.status(404).json({ error: 'No se ha encontrado el producto' });
+		}
+
+		if (!lineFound.exist) {
+			return res
+				.status(404)
+				.json({ error: 'No se ha encontrado la línea seleccionada' });
+		}
+
+		await ProductModel.update(
+			{ ...data, ...{ ActualizadoEn: new Date() } },
+			{
+				where: {
+					CodigoProducto: prductId,
+				},
+			},
+		);
+
+		return res.status(200).json({
+			message: 'Se ha editado el producto',
+			response: newData.dataValues,
+		});
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({
+			error: 'Error al editar el producto',
+		});
+	}
+};
+
 export const methods = {
 	findAll,
 	create,
+	update,
 };

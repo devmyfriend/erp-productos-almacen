@@ -150,4 +150,102 @@ router.get('/', methods.findAll);
 
 router.post('/', createProductPosSchema, validateSchema, methods.create);
 
+/**
+ * @swagger
+ * /api/v1/productos/pos/{CodigoProducto}:
+ *   put:
+ *     summary: Actualizar un Producto inventariable existente
+ *     tags: [Productos inventariables]
+ *     parameters:
+ *       - in: path
+ *         name: CodigoProducto
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: El código del producto a actualizar.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               NombreProducto:
+ *                 type: string
+ *                 description: El nuevo nombre del producto. Debe tener entre 5 y 50 caracteres.
+ *                 example: "Producto actualizado"
+ *               DescripcionProducto:
+ *                 type: string
+ *                 description: La nueva descripción del producto. Debe tener entre 10 y 255 caracteres.
+ *                 example: "Este es un producto actualizado."
+ *               UnidadBase:
+ *                 type: integer
+ *                 description: La nueva unidad base del producto. Debe ser un número entero mayor o igual a cero.
+ *                 example: 2
+ *               UnidadCompra:
+ *                 type: integer
+ *                 description: La nueva unidad de compra del producto. Debe ser un número entero mayor o igual a cero.
+ *                 example: 2
+ *               UnidadVenta:
+ *                 type: integer
+ *                 description: La nueva unidad de venta del producto. Debe ser un número entero mayor o igual a cero.
+ *                 example: 2
+ *               UnidadFiscal:
+ *                 type: integer
+ *                 description: La nueva unidad fiscal del producto. Debe ser un número entero mayor o igual a cero.
+ *                 example: 2
+ *               ClaveProductoServicio:
+ *                 type: string
+ *                 description: La nueva clave del producto/servicio. Debe tener entre 3 y 8 caracteres.
+ *                 example: "654321"
+ *               ClaveUnidadSat:
+ *                 type: string
+ *                 description: La nueva clave de la unidad SAT. Debe tener 3 caracteres.
+ *                 example: "321"
+ *               ImpuestoCompuestoId:
+ *                 type: integer
+ *                 description: El nuevo ID del impuesto compuesto. Debe ser un número entero mayor que cero.
+ *                 example: 2
+ *               LineaId:
+ *                 type: integer
+ *                 description: El nuevo ID de la línea del producto. Debe ser un número entero mayor que cero.
+ *                 example: 2
+ *               CategoriaId_1:
+ *                 type: string
+ *                 description: La nueva categoría 1 del producto. (Opcional)
+ *                 example: "Nueva Categoría 1"
+ *               CategoriaId_2:
+ *                 type: string
+ *                 description: La nueva categoría 2 del producto. (Opcional)
+ *                 example: "Nueva Categoría 2"
+ *               ActualizadoPor:
+ *                 type: integer
+ *                 description: El ID del usuario que realiza la modificación del producto. Debe ser un número entero.
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: Producto actualizado exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de confirmación.
+ *                   example: "Se ha actualizado el producto"
+ *                 info:
+ *                   type: array
+ *                   description: Información adicional sobre el producto actualizado.
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       CodigoProducto:
+ *                         type: string
+ *                         description: El código del producto actualizado.
+ *                         example: "PRD001"
+ */
+
+router.put('/:id', methods.update);
+
 export default router;
