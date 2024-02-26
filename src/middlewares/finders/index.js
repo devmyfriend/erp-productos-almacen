@@ -13,12 +13,36 @@ TODO -> VALIDAR QUE ESTAS LLAVES EXISTAN
   CategoriaId_2	
 */
 
-export const findItemByCode = async (code, type) => {
+// Busca entre todos los codigos activos y deshabilitados
+
+export const findAllItemByCode = async code => {
+	try {
+		const item = await ProductModel.findOne({
+			where: {
+				CodigoProducto: code,
+			},
+		});
+
+		if (!item) {
+			return { exist: false };
+		}
+
+		return { exist: true, data: item.dataValues };
+	} catch (error) {
+		console.log(error);
+
+		return {
+			message: 'Error interno del servidor',
+		};
+	}
+};
+
+// Busca entre todos los codigos activos
+export const findItemByCode = async code => {
 	try {
 		const item = await ProductModel.findOne({
 			where: {
 				Borrado: 0,
-				TipoProductoId: type, // -> tipo de producto a buscar,
 				CodigoProducto: code,
 			},
 		});
