@@ -13,6 +13,9 @@ import productsServiceRoutes from './src/routes/producto.servicio.routes.js';
 import productsSuppliesRoutes from './src/routes/producto.insumo.routes.js';
 
 import productsActivRoutes from './src/routes/producto.activo.routes.js';
+
+import productsFinallyRoutes from './src/routes/producto.terminado.routes.js';
+
 // Base de datos
 import { Connection } from './src/database/mariadb.database.js';
 
@@ -49,6 +52,8 @@ const App = {
 		app.use('/api/v1/productos/insumo', productsSuppliesRoutes);
 
 		app.use('/api/v1/productos/activo', productsActivRoutes);
+
+		app.use('/api/v1/productos/final', productsFinallyRoutes);
 
 		app.use('/', (req, res) => {
 			res.status(404).json({ error: 'error en la solicitud' });
