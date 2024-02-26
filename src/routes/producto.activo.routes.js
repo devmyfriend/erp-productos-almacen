@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { methods } from '../controllers/producto.insumo.controller.js';
+import { methods } from '../controllers/producto.activo.controller.js';
 import { validateSchema } from '../middlewares/express-validator/index.js';
 import * as schemas from '../schemas/pos/index.js';
 
@@ -8,19 +8,19 @@ const router = Router();
 /**
  * @swagger
  * tags:
- *   - name: Insumos
- *     description: Operaciones relacionadas con Servicios
+ *   - name: Activos
+ *     description: Operaciones relacionadas con Activos
  */
 
 /**
  * @swagger
- * /api/v1/productos/insumo:
+ * /api/v1/productos/activo:
  *   get:
- *     summary: Obtener una lista general de Insumos
- *     tags: [Insumos]
+ *     summary: Obtener una lista general de Activos
+ *     tags: [Activos]
  *     responses:
  *       200:
- *         description: Lista de Insumos
+ *         description: Lista de Activos
  *         content:
  *           application/json:
  *             schema:
@@ -39,10 +39,10 @@ const router = Router();
  *                         example: "1"
  *                       NombreProducto:
  *                         type: string
- *                         example: "Insumos"
+ *                         example: "Activos"
  *                       DescripcionProducto:
  *                         type: string
- *                         example: "Es un Insumo"
+ *                         example: "Es un Activo"
  *                       LineaId:
  *                         type: integer
  *                         example: 1
@@ -56,10 +56,10 @@ router.get('/', methods.findAll);
 
 /**
  * @swagger
- * /api/v1/productos/insumo:
+ * /api/v1/productos/activo:
  *   post:
- *     summary: Crear un nuevo Insumo
- *     tags: [Insumos]
+ *     summary: Crear un nuevo Activo
+ *     tags: [Activos]
  *     requestBody:
  *       required: true
  *       content:
@@ -125,7 +125,7 @@ router.get('/', methods.findAll);
  *                 example: 1
  *     responses:
  *       200:
- *         description: Servicio creado exitosamente.
+ *         description: Activo creado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -134,7 +134,7 @@ router.get('/', methods.findAll);
  *                 message:
  *                   type: string
  *                   description: Mensaje de confirmación.
- *                   example: "Se ha creado el Servicio"
+ *                   example: "Se ha creado el Activo"
  *                 response:
  *                   type: array
  *                   description: Información adicional sobre el Servicio creado.
@@ -143,7 +143,7 @@ router.get('/', methods.findAll);
  *                     properties:
  *                       CodigoProducto:
  *                         type: string
- *                         description: El código del Servicio recién creado.
+ *                         description: El código del Activo recién creado.
  *                         example: "PRD001"
  *
  */
@@ -157,17 +157,17 @@ router.post(
 
 /**
  * @swagger
- * /api/v1/productos/insumo/{CodigoInsumo}:
+ * /api/v1/productos/activo/{CodigoActivo}:
  *   put:
- *     summary: Actualizar un Insumo 
- *     tags: [Insumos]
+ *     summary: Actualizar un Activo 
+ *     tags: [Activos]
  *     parameters:
  *       - in: path
- *         name: CodigoInsumo
+ *         name: CodigoActivo
  *         schema:
  *           type: string
  *         required: true
- *         description: El código del Insumo a actualizar.
+ *         description: El código del Activo a actualizar.
  *     requestBody:
  *       required: true
  *       content:
@@ -238,16 +238,16 @@ router.post(
  *                 message:
  *                   type: string
  *                   description: Mensaje de confirmación.
- *                   example: "Se ha actualizado el Insumos"
+ *                   example: "Se ha actualizado el Activo"
  *                 info:
  *                   type: array
- *                   description: Información adicional sobre el Insumo actualizado.
+ *                   description: Información adicional sobre el Activo actualizado.
  *                   items:
  *                     type: object
  *                     properties:
  *                       CodigoProducto:
  *                         type: string
- *                         description: El código del Insumo actualizado.
+ *                         description: El código del Activo actualizado.
  *                         example: "PRD001"
  */
 
@@ -260,10 +260,10 @@ router.put(
 
 /**
  * @swagger
- * /api/v1/productos/insumo/borrar:
+ * /api/v1/productos/activo/borrar:
  *   delete:
- *     summary: Eliminar un Insumo
- *     tags: [Insumos]
+ *     summary: Eliminar un Activo
+ *     tags: [Activos]
  *     requestBody:
  *       required: true
  *       content:
@@ -291,7 +291,7 @@ router.put(
  *                 message:
  *                   type: string
  *                   description: Mensaje de confirmación.
- *                   example: "Se ha eliminado el insumo"
+ *                   example: "Se ha eliminado el Activo"
  */
 
 router.delete(
