@@ -16,6 +16,8 @@ import productsActivRoutes from './src/routes/producto.activo.routes.js';
 
 import productsFinallyRoutes from './src/routes/producto.terminado.routes.js';
 
+import productsVendorRoutes from './src/routes/producto.proveedor.routes.js';
+
 // Base de datos
 import { Connection } from './src/database/mariadb.database.js';
 
@@ -54,6 +56,8 @@ const App = {
 		app.use('/api/v1/productos/activo', productsActivRoutes);
 
 		app.use('/api/v1/productos/final', productsFinallyRoutes);
+
+		app.use('/api/v1/productos/proveedor', productsVendorRoutes);
 
 		app.use('/', (req, res) => {
 			res.status(404).json({ error: 'error en la solicitud' });
