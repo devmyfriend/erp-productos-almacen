@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { methods } from '../controllers/producto.subscripcion.controller.js';
+import { methods } from '../controllers/producto.combo.controller.js';
 import { validateSchema } from '../middlewares/express-validator/index.js';
 import * as schemas from '../schemas/pos/index.js';
 
@@ -8,19 +8,19 @@ const router = Router();
 /**
  * @swagger
  * tags:
- *   - name: Subscripciones
- *     description: Operaciones relacionadas con las Subscripciones
+ *   - name: Combos
+ *     description: Operaciones relacionadas con Combos
  */
 
 /**
  * @swagger
- * /api/v1/productos/subscripcion:
+ * /api/v1/productos/combo:
  *   get:
- *     summary: Obtener una lista general de las Subscripciones
- *     tags: [ Subscripciones]
+ *     summary: Obtener una lista general de Combos
+ *     tags: [Combos]
  *     responses:
  *       200:
- *         description: Lista de  la Subscripcion
+ *         description: Lista de Combos
  *         content:
  *           application/json:
  *             schema:
@@ -42,7 +42,7 @@ const router = Router();
  *                         example: "Membresia"
  *                       DescripcionProducto:
  *                         type: string
- *                         example: "Es una Subscripcion"
+ *                         example: "Es un Combo"
  *                       LineaId:
  *                         type: integer
  *                         example: 1
@@ -56,10 +56,10 @@ router.get('/', methods.findAll);
 
 /**
  * @swagger
- * /api/v1/productos/subscripcion:
+ * /api/v1/productos/combo:
  *   post:
- *     summary: Crear una nueva Subscripciones
- *     tags: [Subscripciones]
+ *     summary: Crear un nuevo Combo
+ *     tags: [Combos]
  *     requestBody:
  *       required: true
  *       content:
@@ -125,7 +125,7 @@ router.get('/', methods.findAll);
  *                 example: 1
  *     responses:
  *       200:
- *         description: Subscripcion creada exitosamente.
+ *         description: Combo creado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -134,16 +134,16 @@ router.get('/', methods.findAll);
  *                 message:
  *                   type: string
  *                   description: Mensaje de confirmación.
- *                   example: "Se ha creado el Servicio"
+ *                   example: "Se ha creado el Combo"
  *                 response:
  *                   type: array
- *                   description: Información adicional sobre el Servicio creado.
+ *                   description: Información adicional sobre el Combo creado.
  *                   items:
  *                     type: object
  *                     properties:
  *                       CodigoProducto:
  *                         type: string
- *                         description: El código del Servicio recién creado.
+ *                         description: El código del Combo recién creado.
  *                         example: "PRD001"
  *
  */
@@ -157,17 +157,17 @@ router.post(
 
 /**
  * @swagger
- * /api/v1/productos/subscripcion/{CodigoSubscripcion}:
+ * /api/v1/productos/combo/{CodigoCombo}:
  *   put:
- *     summary: Actualizar una Subscripcion
- *     tags: [Subscripciones]
+ *     summary: Actualizar un Combo
+ *     tags: [Combos]
  *     parameters:
  *       - in: path
- *         name: CodigoSubscripcion
+ *         name: CodigoCombo
  *         schema:
  *           type: string
  *         required: true
- *         description: El código de la Subscripcion a actualizar.
+ *         description: El código del Combo a actualizar.
  *     requestBody:
  *       required: true
  *       content:
@@ -229,7 +229,7 @@ router.post(
  *                 example: 1
  *     responses:
  *       200:
- *         description: Subscripcion actualizada exitosamente.
+ *         description: Producto actualizado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -238,16 +238,16 @@ router.post(
  *                 message:
  *                   type: string
  *                   description: Mensaje de confirmación.
- *                   example: "Se ha actualizado el Servicio"
+ *                   example: "Se ha actualizado el Combo"
  *                 info:
  *                   type: array
- *                   description: Información adicional sobre el Servicio actualizado.
+ *                   description: Información adicional sobre el Combo actualizado.
  *                   items:
  *                     type: object
  *                     properties:
  *                       CodigoProducto:
  *                         type: string
- *                         description: El código del Servicio actualizado.
+ *                         description: El código del Combo actualizado.
  *                         example: "PRD001"
  */
 
@@ -260,10 +260,10 @@ router.put(
 
 /**
  * @swagger
- * /api/v1/productos/subscripcion/borrar:
+ * /api/v1/productos/combo/borrar:
  *   delete:
- *     summary: Eliminar una Subscripcion
- *     tags: [Subscripciones]
+ *     summary: Eliminar un Combo
+ *     tags: [Combos]
  *     requestBody:
  *       required: true
  *       content:
@@ -291,7 +291,7 @@ router.put(
  *                 message:
  *                   type: string
  *                   description: Mensaje de confirmación.
- *                   example: "Se ha eliminado la subscripcion"
+ *                   example: "Se ha eliminado el Combo"
  */
 
 router.delete(
