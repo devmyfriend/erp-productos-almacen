@@ -1,19 +1,20 @@
 import { DataTypes } from 'sequelize';
 import { Connection } from '../database/mariadb.database.js';
 
-export const LineModel = Connection.define(
-    'Line',
+export const SubFamilyModel = Connection.define(
+    'SubFamily',
     {
-        LineaId:{
+        SubFamiliaId:{
+            allowNull: false,
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        SubFamiliaId:{
+        FamiliaId:{
             allowNull: false,
             type: DataTypes.INTEGER
         },
-        NombreLinea:{
+        NombreSubFamilia:{
             type: DataTypes.STRING,
         },
         Activo:{
@@ -26,17 +27,19 @@ export const LineModel = Connection.define(
         }, 
         CreadoEn:{
             type: DataTypes.timestamp,
+            defaultValue: Date.now()
         },
         ActualizadoPor:{
             type: DataTypes.INTEGER,
         },
         ActualizadoEn:{
             type: DataTypes.timestamp,
+            defaultValue: Date.now()
         },
     },
 
     {
-        tableName: 'cat_Lineas',
+        tableName: 'cat_SubFamilias',
         timestamps: true,
         freezeTableName: true,
     },
