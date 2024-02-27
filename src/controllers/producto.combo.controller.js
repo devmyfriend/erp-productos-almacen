@@ -19,7 +19,7 @@ const findAll = async (req, res) => {
 			],
 			where: {
 				Borrado: 0,
-				TipoProductoId: 2, // -> produCtos que se venden a publico
+				TipoProductoId: 9, // -> COMBO
 			},
 		});
 
@@ -49,22 +49,22 @@ const create = async (req, res) => {
 		if (productFound.exist) {
 			return res
 				.status(409)
-				.json({ error: 'El código del producto ya esta en uso' });
+				.json({ error: 'El código del Combo ya esta en uso' });
 		}
 
-		const newProduct = Object.assign(data, { TipoProductoId: 2 });
+		const newProduct = Object.assign(data, { TipoProductoId: 9 });
 
 		const createProduct = await ProductModel.create(newProduct);
 
 		return res.status(200).json({
-			message: 'Se ha creado el producto',
+			message: 'Se ha creado el Combo',
 			response: [{ CodigoProducto: createProduct.dataValues.CodigoProducto }],
 		});
 	} catch (error) {
 		console.log(error);
 
 		return res.status(500).json({
-			error: 'Error al crear el producto',
+			error: 'Error al crear el Combo',
 		});
 	}
 };
@@ -83,7 +83,7 @@ const update = async (req, res) => {
 		}
 
 		if (!productFound.exist) {
-			return res.status(404).json({ error: 'No se ha encontrado el producto' });
+			return res.status(404).json({ error: 'No se ha encontrado el Combo' });
 		}
 
 		if (!lineFound.exist) {
@@ -102,12 +102,12 @@ const update = async (req, res) => {
 		);
 
 		return res.status(200).json({
-			message: 'Se ha editado el producto',
+			message: 'Se ha editado el Combo',
 		});
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({
-			error: 'Error al editar el producto',
+			error: 'Error al editar el Combo',
 		});
 	}
 };
@@ -124,11 +124,11 @@ const disable = async (req, res) => {
 	}
 
 	if (!productFound.exist) {
-		return res.status(404).json({ error: 'No se ha encontrado el producto' });
+		return res.status(404).json({ error: 'No se ha encontrado el Combo' });
 	}
 
 	await ProductModel.update(
-		{ ...data, BorradoEn: new Date(), Borrado: true },
+		{ ...data, BorradoEn: new Date(), Borrado: true,  },
 		{
 			where: {
 				CodigoProducto: data.CodigoProducto,
@@ -136,7 +136,7 @@ const disable = async (req, res) => {
 		},
 	);
 
-	return res.status(200).json({ message: 'Producto eliminado' });
+	return res.status(200).json({ message: 'Combo eliminado' });
 };
 
 export const methods = {
