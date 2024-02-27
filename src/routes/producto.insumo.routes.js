@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { methods } from '../controllers/producto.pos.controller.js';
+import { methods } from '../controllers/producto.insumo.controller.js';
 import { validateSchema } from '../middlewares/express-validator/index.js';
 import * as schemas from '../schemas/productos/index.js';
 
@@ -8,19 +8,19 @@ const router = Router();
 /**
  * @swagger
  * tags:
- *   - name: Productos inventariables
- *     description: Operaciones relacionadas con Productos inventariables
+ *   - name: Insumos
+ *     description: Operaciones relacionadas con Insumos
  */
 
 /**
  * @swagger
- * /api/v1/productos/pos:
+ * /api/v1/productos/insumo:
  *   get:
- *     summary: Obtener una lista general de Productos inventariables
- *     tags: [Productos inventariables]
+ *     summary: Obtener una lista general de Insumos
+ *     tags: [Insumos]
  *     responses:
  *       200:
- *         description: Lista de Productos inventariables
+ *         description: Lista de Insumos
  *         content:
  *           application/json:
  *             schema:
@@ -33,16 +33,16 @@ const router = Router();
  *                     properties:
  *                       CodigoProducto:
  *                         type: string
- *                         example: "202000114"
+ *                         example: "202000114212"
  *                       TipoProductoId:
  *                         type: string
  *                         example: "1"
  *                       NombreProducto:
  *                         type: string
- *                         example: "COCACOLA"
+ *                         example: "Insumos"
  *                       DescripcionProducto:
  *                         type: string
- *                         example: "Es una cocacola de 600"
+ *                         example: "Es un Insumo"
  *                       LineaId:
  *                         type: integer
  *                         example: 1
@@ -56,10 +56,10 @@ router.get('/', methods.findAll);
 
 /**
  * @swagger
- * /api/v1/productos/pos:
+ * /api/v1/productos/insumo:
  *   post:
- *     summary: Crear un nuevo Producto inventariable
- *     tags: [Productos inventariables]
+ *     summary: Crear un nuevo Insumo
+ *     tags: [Insumos]
  *     requestBody:
  *       required: true
  *       content:
@@ -125,7 +125,7 @@ router.get('/', methods.findAll);
  *                 example: 1
  *     responses:
  *       200:
- *         description: Producto creado exitosamente.
+ *         description: Servicio creado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -134,16 +134,16 @@ router.get('/', methods.findAll);
  *                 message:
  *                   type: string
  *                   description: Mensaje de confirmación.
- *                   example: "Se ha creado el producto"
+ *                   example: "Se ha creado el Servicio"
  *                 response:
  *                   type: array
- *                   description: Información adicional sobre el producto creado.
+ *                   description: Información adicional sobre el Servicio creado.
  *                   items:
  *                     type: object
  *                     properties:
  *                       CodigoProducto:
  *                         type: string
- *                         description: El código del producto recién creado.
+ *                         description: El código del Servicio recién creado.
  *                         example: "PRD001"
  *
  */
@@ -157,17 +157,17 @@ router.post(
 
 /**
  * @swagger
- * /api/v1/productos/pos/{CodigoProducto}:
+ * /api/v1/productos/insumo/{CodigoInsumo}:
  *   put:
- *     summary: Actualizar un Producto inventariable existente
- *     tags: [Productos inventariables]
+ *     summary: Actualizar un Insumo
+ *     tags: [Insumos]
  *     parameters:
  *       - in: path
- *         name: CodigoProducto
+ *         name: CodigoInsumo
  *         schema:
  *           type: string
  *         required: true
- *         description: El código del producto a actualizar.
+ *         description: El código del Insumo a actualizar.
  *     requestBody:
  *       required: true
  *       content:
@@ -178,7 +178,7 @@ router.post(
  *               NombreProducto:
  *                 type: string
  *                 description: El nuevo nombre del producto. Debe tener entre 5 y 50 caracteres.
- *                 example: "Producto actualizado"
+ *                 example: "Datos actualizado"
  *               DescripcionProducto:
  *                 type: string
  *                 description: La nueva descripción del producto. Debe tener entre 10 y 255 caracteres.
@@ -238,16 +238,16 @@ router.post(
  *                 message:
  *                   type: string
  *                   description: Mensaje de confirmación.
- *                   example: "Se ha actualizado el producto"
+ *                   example: "Se ha actualizado el Insumos"
  *                 info:
  *                   type: array
- *                   description: Información adicional sobre el producto actualizado.
+ *                   description: Información adicional sobre el Insumo actualizado.
  *                   items:
  *                     type: object
  *                     properties:
  *                       CodigoProducto:
  *                         type: string
- *                         description: El código del producto actualizado.
+ *                         description: El código del Insumo actualizado.
  *                         example: "PRD001"
  */
 
@@ -260,10 +260,10 @@ router.put(
 
 /**
  * @swagger
- * /api/v1/productos/pos:
+ * /api/v1/productos/insumo/borrar:
  *   delete:
- *     summary: Eliminar un Producto inventariable existente
- *     tags: [Productos inventariables]
+ *     summary: Eliminar un Insumo
+ *     tags: [Insumos]
  *     requestBody:
  *       required: true
  *       content:
@@ -291,11 +291,11 @@ router.put(
  *                 message:
  *                   type: string
  *                   description: Mensaje de confirmación.
- *                   example: "Se ha eliminado el producto"
+ *                   example: "Se ha eliminado el insumo"
  */
 
 router.delete(
-	'/',
+	'/borrar',
 	schemas.deleteProductPosSchema,
 	validateSchema,
 	methods.disable,

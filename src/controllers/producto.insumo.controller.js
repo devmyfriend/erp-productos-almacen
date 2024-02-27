@@ -19,7 +19,7 @@ const findAll = async (req, res) => {
 			],
 			where: {
 				Borrado: 0,
-				TipoProductoId: 2, // -> produCtos que se venden a publico
+				TipoProductoId: 4, // -> INSUMOS
 			},
 		});
 
@@ -49,22 +49,22 @@ const create = async (req, res) => {
 		if (productFound.exist) {
 			return res
 				.status(409)
-				.json({ error: 'El código del producto ya esta en uso' });
+				.json({ error: 'El código del Insumo ya esta en uso' });
 		}
 
-		const newProduct = Object.assign(data, { TipoProductoId: 2 });
+		const newProduct = Object.assign(data, { TipoProductoId: 4 });
 
 		const createProduct = await ProductModel.create(newProduct);
 
 		return res.status(200).json({
-			message: 'Se ha creado el producto',
+			message: 'Se ha creado el Insumo',
 			response: [{ CodigoProducto: createProduct.dataValues.CodigoProducto }],
 		});
 	} catch (error) {
 		console.log(error);
 
 		return res.status(500).json({
-			error: 'Error al crear el producto',
+			error: 'Error al crear el Insumo',
 		});
 	}
 };
@@ -83,7 +83,7 @@ const update = async (req, res) => {
 		}
 
 		if (!productFound.exist) {
-			return res.status(404).json({ error: 'No se ha encontrado el producto' });
+			return res.status(404).json({ error: 'No se ha encontrado el Insumo' });
 		}
 
 		if (!lineFound.exist) {
@@ -102,12 +102,12 @@ const update = async (req, res) => {
 		);
 
 		return res.status(200).json({
-			message: 'Se ha editado el producto',
+			message: 'Se ha editado el Insumo',
 		});
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({
-			error: 'Error al editar el producto',
+			error: 'Error al editar el Insumo',
 		});
 	}
 };
@@ -124,11 +124,11 @@ const disable = async (req, res) => {
 	}
 
 	if (!productFound.exist) {
-		return res.status(404).json({ error: 'No se ha encontrado el producto' });
+		return res.status(404).json({ error: 'No se ha encontrado el Insumo' });
 	}
 
 	await ProductModel.update(
-		{ ...data, BorradoEn: new Date(), Borrado: true },
+		{ ...data, BorradoEn: new Date(), Borrado: true,  },
 		{
 			where: {
 				CodigoProducto: data.CodigoProducto,
@@ -136,7 +136,7 @@ const disable = async (req, res) => {
 		},
 	);
 
-	return res.status(200).json({ message: 'Producto eliminado' });
+	return res.status(200).json({ message: 'Servicio Insumo' });
 };
 
 export const methods = {
