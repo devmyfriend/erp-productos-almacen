@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { methods } from '../controllers/producto.proveedor.controller.js';
 import { validateSchema } from '../middlewares/express-validator/index.js';
-import * as schemas from '../schemas/pos/index.js';
+import * as schemas from '../schemas/productos/index.js';
 
 const router = Router();
 
@@ -159,7 +159,7 @@ router.post(
  * @swagger
  * /api/v1/productos/proveedor/{CodigoProducto}:
  *   put:
- *     summary: Actualizar un Producto 
+ *     summary: Actualizar un Producto
  *     tags: [Productos de Proveedores de Terceros]
  *     parameters:
  *       - in: path

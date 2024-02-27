@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { methods } from '../controllers/producto.activo.controller.js';
 import { validateSchema } from '../middlewares/express-validator/index.js';
-import * as schemas from '../schemas/pos/index.js';
+import * as schemas from '../schemas/productos/index.js';
 
 const router = Router();
 
