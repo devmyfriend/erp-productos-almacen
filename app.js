@@ -18,6 +18,8 @@ import productsFinallyRoutes from './src/routes/producto.terminado.routes.js';
 
 import productsVendorRoutes from './src/routes/producto.proveedor.routes.js';
 
+import productSubscriptionRoutes from './src/routes/producto.subscripcion.routes.js';
+
 // Base de datos
 import { Connection } from './src/database/mariadb.database.js';
 
@@ -58,6 +60,8 @@ const App = {
 		app.use('/api/v1/productos/final', productsFinallyRoutes);
 
 		app.use('/api/v1/productos/proveedor', productsVendorRoutes);
+
+		app.use('/api/v1/productos/subscripcion', productSubscriptionRoutes);
 
 		app.use('/', (req, res) => {
 			res.status(404).json({ error: 'error en la solicitud' });

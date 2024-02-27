@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { methods } from '../controllers/producto.servicio.controller.js';
+import { methods } from '../controllers/producto.subscripcion.controller.js';
 import { validateSchema } from '../middlewares/express-validator/index.js';
 import * as schemas from '../schemas/pos/index.js';
 
@@ -8,19 +8,19 @@ const router = Router();
 /**
  * @swagger
  * tags:
- *   - name: Servicios POS
- *     description: Operaciones relacionadas con Servicios
+ *   - name: Subscripciones
+ *     description: Operaciones relacionadas con las Subscripciones
  */
 
 /**
  * @swagger
- * /api/v1/productos/servicio:
+ * /api/v1/productos/subscripcion:
  *   get:
- *     summary: Obtener una lista general de Servicios
- *     tags: [Servicios POS]
+ *     summary: Obtener una lista general de las Subscripciones
+ *     tags: [ Subscripciones]
  *     responses:
  *       200:
- *         description: Lista de Servicios
+ *         description: Lista de  la Subscripcion
  *         content:
  *           application/json:
  *             schema:
@@ -42,7 +42,7 @@ const router = Router();
  *                         example: "Membresia"
  *                       DescripcionProducto:
  *                         type: string
- *                         example: "Es un servicio"
+ *                         example: "Es una Subscripcion"
  *                       LineaId:
  *                         type: integer
  *                         example: 1
@@ -56,10 +56,10 @@ router.get('/', methods.findAll);
 
 /**
  * @swagger
- * /api/v1/productos/servicio:
+ * /api/v1/productos/subscripcion:
  *   post:
- *     summary: Crear un nuevo Servicio
- *     tags: [Servicios POS]
+ *     summary: Crear una nueva Subscripciones
+ *     tags: [Subscripciones]
  *     requestBody:
  *       required: true
  *       content:
@@ -125,7 +125,7 @@ router.get('/', methods.findAll);
  *                 example: 1
  *     responses:
  *       200:
- *         description: Servicio creado exitosamente.
+ *         description: Subscripcion creada exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -157,17 +157,17 @@ router.post(
 
 /**
  * @swagger
- * /api/v1/productos/servicio/{CodigoServicio}:
+ * /api/v1/productos/subscripcion/{CodigoServicio}:
  *   put:
- *     summary: Actualizar un Servicio 
- *     tags: [Servicios POS]
+ *     summary: Actualizar una Subscripcion
+ *     tags: [Subscripciones]
  *     parameters:
  *       - in: path
  *         name: CodigoServicio
  *         schema:
  *           type: string
  *         required: true
- *         description: El código del Servicio a actualizar.
+ *         description: El código de la Subscripcion a actualizar.
  *     requestBody:
  *       required: true
  *       content:
@@ -229,7 +229,7 @@ router.post(
  *                 example: 1
  *     responses:
  *       200:
- *         description: Producto actualizado exitosamente.
+ *         description: Subscripcion actualizada exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -260,10 +260,10 @@ router.put(
 
 /**
  * @swagger
- * /api/v1/productos/servicio/borrar:
+ * /api/v1/productos/subscripcion/borrar:
  *   delete:
- *     summary: Eliminar un Servicio
- *     tags: [Servicios POS]
+ *     summary: Eliminar una Subscripcion
+ *     tags: [Subscripciones]
  *     requestBody:
  *       required: true
  *       content:
@@ -291,7 +291,7 @@ router.put(
  *                 message:
  *                   type: string
  *                   description: Mensaje de confirmación.
- *                   example: "Se ha eliminado el producto"
+ *                   example: "Se ha eliminado la subscripcion"
  */
 
 router.delete(
