@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  app:
+    build: ./
+    image: erp_api_p_a
+    container_name: API_P_A
+    ports:
+      - "7000:5000"
+    env_file:
+      - .env
