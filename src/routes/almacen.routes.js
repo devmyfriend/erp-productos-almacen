@@ -8,7 +8,7 @@ const router = Router();
  * @swagger
  * tags:
  *   - name: Almacén
- *     description: Operaciones relacionadas con el Catálogo General de productos
+ *     description: Operaciones relacionadas con el Almacén
  */
 
 /**
@@ -145,5 +145,52 @@ router.post('/', schemas.createStoreSchema, validateSchema, methods.create);
  */
 
 router.put('/:id', schemas.updateStoreSchema, validateSchema, methods.update);
+
+/**
+ * @swagger
+ * /api/v1/almacen/borrar:
+ *   delete:
+ *     summary: Eliminar un Alamcén
+ *     tags: [Almacén]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               AlmacenId:
+ *                 type: number
+ *                 description: El id del Almacén a eliminar.
+ *                 example: 1
+ *               SucursalId:
+ *                 type: number
+ *                 description: El id de la sucursal.
+ *                 example: 1
+ *
+ *               BorradoPor:
+ *                 type: number
+ *                 description: El usuario que elimino el prodcuto.
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: Almacén eliminado exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de confirmación.
+ *                   example: "Se ha eliminado el Almacén"
+ */
+
+router.delete(
+	'/borrar',
+	schemas.deleteStoreSchema,
+	validateSchema,
+	methods.disable,
+);
 
 export default router;
