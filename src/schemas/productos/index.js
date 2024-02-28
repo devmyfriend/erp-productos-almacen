@@ -184,7 +184,7 @@ export const updateProductPosSchema = [
 	body('ActualizadoPor')
 		.notEmpty()
 		.isInt()
-		.withMessage('El campo CreadoPor debe ser un número entero.'),
+		.withMessage('El campo ActualizadoPor debe ser un número entero.'),
 ];
 
 export const deleteProductPosSchema =[
