@@ -25,19 +25,19 @@ export const LineModel = Connection.define(
             type: DataTypes.INTEGER,
         }, 
         CreadoEn:{
-            type: DataTypes.timestamp,
+            type: DataTypes.DATE,
         },
         ActualizadoPor:{
             type: DataTypes.INTEGER,
         },
         ActualizadoEn:{
-            type: DataTypes.timestamp,
+            type: DataTypes.DATE,
         },
     },
 
     {
         tableName: 'cat_Lineas',
-        timestamps: true,
+        timestamps: false,
         freezeTableName: true,
     },
 );

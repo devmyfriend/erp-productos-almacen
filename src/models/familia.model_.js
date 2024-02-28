@@ -8,6 +8,7 @@ export const FamilyModel = Connection.define(
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
+            autoIncrement: true,
         },
         NombreFamilia:{
             type: DataTypes.STRING,
@@ -15,25 +16,27 @@ export const FamilyModel = Connection.define(
         Activo:{
             allowNull: false,
             defaultValue: 1,
-            type: DataTypes.TINYINT,
-        },
+            type: DataTypes.BOOLEAN,
+        }, 
         CreadoPor:{
             type: DataTypes.INTEGER,
         }, 
         CreadoEn:{
-            type: DataTypes.DATE,
+            type: DataTypes.timestamp,
+            defaultValue: Date.now()
         },
         ActualizadoPor:{
             type: DataTypes.INTEGER,
         },
         ActualizadoEn:{
-            type: DataTypes.DATE,
+            type: DataTypes.timestamp,
+            defaultValue: Date.now()
         },
     },
 
     {
         tableName: 'cat_Familias',
-        timestamps: false,
-        freezeTableName: false,
+        timestamps: true,
+        freezeTableName: true,
     },
 );

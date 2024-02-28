@@ -1,4 +1,4 @@
-import { LinetModel } from '../../models/linea.model.js';
+import { LineModel } from '../../models/linea.model.js';
 import { ProductModel } from '../../models/producto.model.js';
 import { UserModel } from '../../models/usuario.model.js';
 
@@ -63,10 +63,10 @@ export const findItemByCode = async code => {
 
 export const findLineById = async id_line => {
 	try {
-		const item = await LinetModel.findOne({
+		const item = await LineModel.findOne({
 			where: {
 				LineaId: id_line,
-				Borrado: false,
+				activo: true,
 			},
 		});
 
