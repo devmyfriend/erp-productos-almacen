@@ -113,7 +113,7 @@ router.get('/', methods.findAll);
  *                   items:
  *                     type: object
  *                     properties:
- *                       AlmacenId:
+ *                       ProductoAlmacenId:
  *                         type: number
  *                         description: El id del producto.
  *                         example: 10
@@ -207,16 +207,6 @@ router.post(
  *                   type: string
  *                   description: Mensaje de confirmación.
  *                   example: "Se ha editado el producto"
- *                 response:
- *                   type: array
- *                   description: Información adicional sobre el producto editado.
- *                   items:
- *                     type: object
- *                     properties:
- *                       AlmacenId:
- *                         type: number
- *                         description: El id del producto.
- *                         example: 10
  */
 
 router.put(
