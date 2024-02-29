@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import * as schemas from '../../schemas/familias/index.js'
 import { validateSchema } from '../../middlewares/express-validator/index.js';
-import { validateFamilyIdExist, validateFamilyActive, validateFamilyByNameExist, validateFamilyByName } from '../../middlewares/familia/familia.middleware.js'
+import { validateFamilyIdExist, validateFamilyActive, validateFamilyByNameExist } from '../../middlewares/familia/familia.middleware.js'
 import { methods } from '../../controllers/familia/familia.controller.js';
 
 
@@ -10,43 +10,43 @@ const router = Router();
 /* TRAE LISTA DE FAMILIAS PAGINADO ACTIVO*/
 router.get(
     '/ListPageFamilyActive',
-    methods.getListFamilyActivePage
+    methods.getPagingActiveList
 );
 
 /* TRAE LISTA DE FAMILIAS PAGINADO INACTIVO*/
 router.get(
     '/ListPageFamilyInctive',
-    methods.getListFamilyInctivePage
+    methods.getPagingInactiveList
 );
 
 /* TRAE LISTA DE FAMILIAS PAGINADO DE TODAS LAS FAMILIAS*/
 router.get(
     '/ListPageFamilyAll',
-    methods.getListFamilyPageAll
+    methods.getPagingListAll
 );
 
 /* TRAE LISTA DE FAMILIAS ACTIVO*/
 router.get(
     '/ListFamilyActive',
-    methods.getListFamilyActive
+    methods.getActiveList
 );
 
 /* TRAE LISTA DE FAMILIAS INACTIVO*/
 router.get(
     '/ListFamilyInactive',
-    methods.getListFamilyInactive
+    methods.getInactiveList
 );
 
 /* TRAE LISTA DE FAMILIAS*/
 router.get(
     '/ListFamilyAll',
-    methods.getListFamilyAll
+    methods.getListAll
 );
 
 /* TRAE LISTA DE FAMILIAS COINSIDENCIA DE NOMBRE ACTIVO*/
 router.get(
-    '/ListFamilyByName/:Nombre',
-    methods.getFamilyByName
+    '/buscar/:Nombre',
+    methods.getByName
 );
 
 /* CREA FAMILIA*/
@@ -55,18 +55,18 @@ router.post(
     schemas.createFamilySchema,
     validateSchema,
     validateFamilyByNameExist,
-    methods.createFamily,
+    methods.create,
 )
 
 /* EDITA FAMILIA*/
-router.post(
-    '/updateFamily',
+router.put(
+    '/',
     schemas.updateFamilySchema,
     validateSchema,
     validateFamilyIdExist,
     validateFamilyActive,
     validateFamilyByNameExist,
-    methods.updateFamily,
+    methods.update,
 )
 
 export default router;

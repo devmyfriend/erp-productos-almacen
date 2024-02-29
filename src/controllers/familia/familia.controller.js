@@ -1,7 +1,7 @@
 import { Op } from "sequelize"; 
 import { FamilyModel } from "../../models/familia.model.js"
 
-const getListFamilyActivePage = async (req, res) => {
+const getPagingActiveList = async (req, res) => {
 	const page = Number(req.params.page) || 1;
 	const limit = 20;
 	const offset = (page - 1) * limit;
@@ -31,7 +31,7 @@ const getListFamilyActivePage = async (req, res) => {
 	}
 };
 
-const getListFamilyInctivePage = async (req, res) => {
+const getPagingInactiveList = async (req, res) => {
 	const page = Number(req.params.page) || 1;
 	const limit = 20;
 	const offset = (page - 1) * limit;
@@ -61,7 +61,7 @@ const getListFamilyInctivePage = async (req, res) => {
 	}
 };
 
-const getListFamilyPageAll = async (req, res) => {
+const getPagingListAll = async (req, res) => {
 	const page = Number(req.params.page) || 1;
 	const limit = 20;
 	const offset = (page - 1) * limit;
@@ -88,7 +88,7 @@ const getListFamilyPageAll = async (req, res) => {
 	}
 };
 
-const getListFamilyActive = async (req, res) => {
+const getActiveList = async (req, res) => {
 	try {
         const listFamily = await FamilyModel.findAll({
             where: {
@@ -108,7 +108,7 @@ const getListFamilyActive = async (req, res) => {
     }
 };
 
-const getListFamilyInactive = async (req, res) => {
+const getInactiveList = async (req, res) => {
 	try {
         const listFamily = await FamilyModel.findAll({
             where: {
@@ -128,7 +128,7 @@ const getListFamilyInactive = async (req, res) => {
     }
 };
 
-const getListFamilyAll = async (req, res) => {
+const getListAll = async (req, res) => {
 	try {
         const listFamily = await FamilyModel.findAll();
 		
@@ -144,7 +144,7 @@ const getListFamilyAll = async (req, res) => {
     }
 };
 
-const getFamilyByName = async (req, res) => {
+const getByName = async (req, res) => {
 	const { NombreFamilia } = req.params;
 	console.log(req.params)
 
@@ -171,7 +171,7 @@ const getFamilyByName = async (req, res) => {
 	}
 };
 
-const createFamily = async (req, res) => {
+const create = async (req, res) => {
 	const data = req.body;
 	console.log(req.body)
 	try {
@@ -190,19 +190,16 @@ const createFamily = async (req, res) => {
 	}
 };
 
-const updateFamily = async (req, res) => {
+const update = async (req, res) => {
 	const data = req.body;
-	console.log(req.body)
-
 	try {
 		
-		const editFamily = await FamilyModel.update({FamiliaId: data.FamiliaId})
+		const editFamily = await FamilyModel.findOne({where: {FamiliaId: data.FamiliaId}})
+
 		editFamily.NombreFamilia = data.NombreFamilia
 		editFamily.ActualizadoPor = data.ActualizadoPor
 		editFamily.ActualizadoEn = new Date()
 		await editFamily.save()
-
-		return res.status(200).json({ Message: 'OK', editFamily });
 
 	} catch (error) {
 		console.log(error)
@@ -212,13 +209,13 @@ const updateFamily = async (req, res) => {
 };
 
 export const methods = {
-	getListFamilyActivePage,
-    getListFamilyInctivePage,
-    getListFamilyPageAll,
-    getListFamilyActive,
-    getListFamilyInactive,
-    getListFamilyAll,
-    getFamilyByName,
-    createFamily,
-    updateFamily
+	getPagingActiveList,
+    getPagingInactiveList,
+    getPagingListAll,
+    getActiveList,
+    getInactiveList,
+    getListAll,
+    getByName,
+    create,
+    update
 };

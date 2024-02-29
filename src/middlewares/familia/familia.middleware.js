@@ -32,37 +32,6 @@ export const validateFamilyIdExist = async (req, res, next) => {
     }
 }
 
-export const validateFamilyByNameExist = async (req, res, next) => {
-    const { NombreFamilia } = req.body
-    console.log("Body de validateFamilyByNameExist")
-    console.log(req.body)
-
-    try {
-
-        const validate = await FamilyModel.findOne({
-            where: {
-                NombreFamilia: NombreFamilia,
-            },
-        });
-
-        if (validate) {
-            return res.status(200).json({
-                status: 'Error',
-                Error: 'Cuidado el nombre de la famila ya esta en uso'
-            });
-        }
-
-        console.log("EL NOMBRE NO ESTA EN USO")
-
-        next();
-
-    } catch (error) {
-        return res.status(500).send({
-            errors: error
-        })
-    }
-}
-
 export const validateFamilyActive = async (req, res, next) => {
     const { FamiliaId } = req.body
     console.log("Body de validateFamilyActive")
@@ -93,7 +62,7 @@ export const validateFamilyActive = async (req, res, next) => {
     }
 }
 
-export const validateFamilyByName = async (req, res, next) => {
+export const validateFamilyByNameExist = async (req, res, next) => {
     const { NombreFamilia } = req.body
 
     try {
@@ -107,15 +76,15 @@ export const validateFamilyByName = async (req, res, next) => {
         if (validate) {
             return res.status(200).json({
                 status: 'Error',
-                Error: 'El nombre de la familia ya está en uso'
+                Error: 'Cuidado el nombre de la famila ya esta en uso'
             });
         }
+
+        console.log("EL NOMBRE NO ESTA EN USO")
 
         next();
 
     } catch (error) {
-        console.log(error)
-        console.log("Error validacion por nombre de familia")
         return res.status(500).send({
             errors: error
         })
@@ -123,8 +92,7 @@ export const validateFamilyByName = async (req, res, next) => {
 }
 
 
-
-export const validateFamilyInactive = async (req, res, next) => {
+/*export const validateFamilyInactive = async (req, res, next) => {
     const { FamiliaId } = req.body
     try {
 
@@ -157,7 +125,7 @@ export const validateFamilyInactive = async (req, res, next) => {
         })
     }
 }
-
+*/
 
 
 
