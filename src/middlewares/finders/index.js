@@ -1,6 +1,7 @@
 import { LinetModel } from '../../models/linea.model.js';
 import { ProductModel } from '../../models/producto.model.js';
 import { UserModel } from '../../models/usuario.model.js';
+import { PoliticasMembresiaModel } from '../../models/politicas.membresia.model.js';
 
 /*
 TODO -> VALIDAR QUE ESTAS LLAVES EXISTAN 
@@ -106,3 +107,26 @@ export const findUserById = async id_user => {
 		};
 	}
 };
+
+export const findPoliticaMembresaById = async id => {
+	try {
+		const item = await PoliticasMembresiaModel.findOne({
+			where: {
+				PoliticasMembresiaId: id,
+				Borrado: false,
+			},
+		});
+
+		if (!item) {
+			return { exist: false };
+		}
+
+		return { exist: true, data: item.dataValues };
+	} catch (error) {
+		console.log(error);
+
+		return {
+			message: 'Error interno del servidor',
+		};
+	}
+}
