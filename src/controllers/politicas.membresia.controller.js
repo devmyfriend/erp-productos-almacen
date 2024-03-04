@@ -1,121 +1,135 @@
-import { PoliticasMembresiaModel } from "../models/politicas.membresia.model.js";
+import { PoliticasMembresiaModel } from '../models/politicas.membresia.model.js';
 
 const findAll = async (req, res) => {
-    try {
-        const data = await PoliticasMembresiaModel.findAll({
-            attributes: [
-                'PoliticasMembreciasId',
-                'Descripcion',
-                'TipoPeriodo',
-                'ValorPeriodo',
-                'EsGrupal',
-                'MinimoGrupal',
-                'MaximoGrupal',
-                'EsPremium',
-            ],
-            where: {
-                Borrado: 0,
-            },
-        });
+	try {
+		const data = await PoliticasMembresiaModel.findAll({
+			attributes: [
+				'PoliticasMembreciasId',
+				'Descripcion',
+				'TipoPeriodo',
+				'ValorPeriodo',
+				'EsGrupal',
+				'MinimoGrupal',
+				'MaximoGrupal',
+				'EsPremium',
+			],
+			where: {
+				Borrado: 0,
+			},
+		});
 
-        if (data.length < 1) {
-            return res.status(404).json({ error: 'No hay datos disponibles' });
-        }
+		if (data.length < 1) {
+			return res.status(404).json({ error: 'No hay datos disponibles' });
+		}
 
-        return res.status(200).json({ response: data });
-    } catch (error) {
-        console.log(error);
+		return res.status(200).json({ response: data });
+	} catch (error) {
+		console.log(error);
 
-        return res.status(500).json({
-            error: 'Error interno del servidor',
-        });
-    }
-}
+		return res.status(500).json({
+			error: 'Error interno del servidor',
+		});
+	}
+};
 
 const create = async (req, res) => {
-    try { 
-        const data = req.body;
+	try {
+		const data = req.body;
 
-        const validatePoliticasMembresia = await PoliticasMembresiaModel.findOne({
-            where: {
-                Descripcion: data.Descripcion,
-                Borrado: 0,
-            },
-        });
+		const validatePoliticasMembresia = await PoliticasMembresiaModel.findOne({
+			where: {
+				Descripcion: data.Descripcion,
+				Borrado: 0,
+			},
+		});
 
-        if(validatePoliticasMembresia) {
-            return res.status(404).json({ error: 'La política de membresía ya existe' });
-        }
+		if (validatePoliticasMembresia) {
+			return res
+				.status(404)
+				.json({ error: 'La política de membresía ya existe' });
+		}
 
-        const createPoliticasMembresia = await PoliticasMembresiaModel.create(data);
+		const createPoliticasMembresia = await PoliticasMembresiaModel.create(data);
 
-        return res.status(200).json({
-            message: 'Se ha creado la política de membresía',
-            response: [{ PoliticasMembresiaId: createPoliticasMembresia.dataValues.PoliticasMembresiaId }],
-        });
+		return res.status(200).json({
+			message: 'Se ha creado la política de membresía',
+			response: [
+				{
+					PoliticasMembreciasId:
+						createPoliticasMembresia.dataValues.PoliticasMembreciasId,
+				},
+			],
+		});
+	} catch (error) {
+		console.log(error);
 
-
-    } catch (error) {
-        console.log(error);
-
-        return res.status(500).json({
-            error: 'Error interno del servidor',
-        });
-    }
+		return res.status(500).json({
+			error: 'Error interno del servidor',
+		});
+	}
 };
 
 const update = async (req, res) => {
-    try {
-        const { PoliticasMembresiaId } = req.params;
-        const data = req.body;
+	try {
+		const { PoliticasMembreciaId } = req.params;
+		const data = req.body;
 
-        const updatePoliticasMembresia = await PoliticasMembresiaModel.update(data, {
-            where: {
-                PoliticasMembresiaId,
-            },
-        });
+		const validatePoliticasMembresia = await PoliticasMembresiaModel.findOne({
+			where: {
+				PoliticasMembreciasId,
+				Borrado: 0,
+			},
+		});
 
-        if (updatePoliticasMembresia[0] === 0) {
-            return res.status(404).json({ error: 'La política de membresía no existe' });
-        }
+		if (!validatePoliticasMembresia) {
+			return res
+				.status(404)
+				.json({ error: 'La política de membresía no existe' });
+		}
 
-        return res.status(200).json({ message: 'Se ha actualizado la política de membresía' });
-    } catch (error) {
-        console.log(error);
 
-        return res.status(500).json({ error: 'Error interno del servidor' });
-    }
-}
+		return res
+			.status(200)
+			.json({ message: 'Se ha actualizado la política de membresía' });
+	} catch (error) {
+		console.log(error);
+
+		return res.status(500).json({ error: 'Error interno del servidor' });
+	}
+};
 
 const remove = async (req, res) => {
-    try {
-        const body = req.body;
+	try {
+		const body = req.body;
 
-        const deletePoliticasMembresia = await PoliticasMembresiaModel.update({
-            Borrado: 1,
-        }, {
-            where: {
-                PoliticasMembresiaId: body.PoliticasMembresiaId,
-            },
-        });
+		const deletePoliticasMembresia = await PoliticasMembresiaModel.update(
+			{
+				Borrado: 1,
+			},
+			{
+				where: {
+					PoliticasMembreciasId: body.PoliticasMembreciasId,
+				},
+			},
+		);
+		if (deletePoliticasMembresia) {
+			return res
+				.status(404)
+				.json({ error: 'La política de membresía no existe' });
+		}
 
-        if (deletePoliticasMembresia[0] === 0) {
-            return res.status(404).json({ error: 'La política de membresía no existe' });
-        }
-
-        return res.status(200).json({ message: 'Se ha eliminado la política de membresía' });
-
-
-    }   catch (error) {
-        console.log(error);
-
-        return res.status(500).json({ error: 'Error interno del servidor' });
-    }
-} 
+		return res
+			.status(200)
+			.json({ message: 'Se ha eliminado la política de membresía' });
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ error: 'Error interno del servidor' });
+	}
+};
 
 export const methods = {
-    findAll,
-    create,
-    update,
+	findAll,
+	create,
+	update,
     remove
-}
+};

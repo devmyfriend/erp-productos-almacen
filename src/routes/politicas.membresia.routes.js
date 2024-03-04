@@ -1,5 +1,7 @@
 import { Router} from 'express';
 import { methods } from '../controllers/politicas.membresia.controller.js';
+import { validateSchema } from "../middlewares/express-validator/index.js";
+import * as schemas from "../schemas/politicas.membresias.schema.js";
 
 const router = Router();
 
@@ -74,7 +76,7 @@ router.get('/', methods.findAll);
  *           schema:
  *             type: object
  *             properties:
- *               PoliticaMembreciaId:
+ *               PoliticasMembreciasId:
  *                 type: integer
  *                 description: ID de la política de membresía.
  *                 example: 123123
@@ -102,7 +104,7 @@ router.get('/', methods.findAll);
  *                 type: integer
  *                 description: Máximo grupal de la política de membresía.
  *                 example: 10
- *               EsPremium Aj:
+ *               EsPremium:
  *                 type: boolean
  *                 description: Indica si la política de membresía es premium.
  *                 example: false
@@ -127,7 +129,10 @@ router.get('/', methods.findAll);
  *       500:
  *         description: Error interno del servidor.
  */
-router.post('/', methods.create);
+router.post('/', 
+schemas.createPoliticasMembresiaSchema,
+validateSchema,
+methods.create);
 
 
 /**
@@ -200,7 +205,10 @@ router.post('/', methods.create);
  *         description: Error interno del servidor.
  */
 
-router.put('/', methods.update);
+router.put('/',
+schemas.updatePoliticasMembresiaSchema,
+validateSchema,
+methods.update);
 
 /**
  * @swagger
@@ -215,7 +223,7 @@ router.put('/', methods.update);
  *           schema:
  *             type: object
  *             properties:
- *               PoliticasMembresiaId:
+ *               PoliticasMembreciasId:
  *                 type: integer
  *                 description: ID de la política de membresía a eliminar.
  *                 example: 123123
@@ -235,12 +243,15 @@ router.put('/', methods.update);
  *                   type: string
  *                   description: Mensaje de confirmación.
  *                   example: "Se ha eliminado la política de membresía"
- *       404:
+ *       404: 
  *         description: La política de membresía no existe.
  *       500:
  *         description: Error interno del servidor.
  */
-router.delete('/', methods.remove);
+router.delete('/',
+schemas.deletePoliticasMembreciaSchema,
+validateSchema,
+methods.remove);
 
 
 export default router;
