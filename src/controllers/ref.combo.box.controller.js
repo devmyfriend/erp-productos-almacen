@@ -27,8 +27,8 @@ const findAll = async (req, res) => {
 };
 
 const create = async (req, res) => {
-	const createComboBoxBody = req.body;
-	try {
+    try {
+        const createComboBoxBody = req.body;
 		const lastComboBox = await RefComboBoxModel.findOne({
 			where: {
 				Catalogo: createComboBoxBody.Catalogo,
