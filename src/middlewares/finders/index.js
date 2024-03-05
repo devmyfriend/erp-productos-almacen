@@ -4,6 +4,7 @@ import { LinetModel } from '../../models/linea.model.js';
 import { ProductModel } from '../../models/producto.model.js';
 import { ShopModel } from '../../models/sucursal.model.js';
 import { UserModel } from '../../models/usuario.model.js';
+import { PoliticasMembresiaModel } from '../../models/politicas.membresia.model.js';
 
 /*
 TODO -> VALIDAR QUE ESTAS LLAVES EXISTAN 

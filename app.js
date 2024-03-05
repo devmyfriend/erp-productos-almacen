@@ -22,6 +22,10 @@ import productSubscriptionRoutes from './src/routes/producto.subscripcion.routes
 
 import productComboRoutes from './src/routes/producto.combo.routes.js';
 
+import refComboBoxRoutes from './src/routes/ref.combo.box.routes.js';
+
+import politicasMembresiaRoutes from './src/routes/politicas.membresia.routes.js';
+
 import storeRoutes from './src/routes/almacen.routes.js';
 
 import storeProducRoutes from './src/routes/almacen.producto.routes.js';
@@ -70,6 +74,10 @@ const App = {
 		app.use('/api/v1/productos/subscripcion', productSubscriptionRoutes);
 
 		app.use('/api/v1/productos/combo', productComboRoutes);
+
+		app.use('/api/v1/comboBox', refComboBoxRoutes);
+
+		app.use('/api/v1/politicasMembresia', politicasMembresiaRoutes);
 
 		app.use('/api/v1/almacen', storeRoutes);
 
