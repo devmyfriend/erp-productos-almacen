@@ -3,53 +3,44 @@ import { body } from 'express-validator';
 export const createSubFamilySchema = [
 	body('FamiliaId')
 		.notEmpty()
-		.withMessage('El campo ID familia no puede estar vacío')
 		.isInt()
-		.withMessage('El campo ID familia invalido'),
+		.withMessage('Falta ID de familia'),
 	body('NombreSubFamilia')
 		.notEmpty()
-		.withMessage('El campo nombre de familia no puede estar vacío')
-        .length(5,50)
-        .withMessage('El nombre de la familia es demaciado largo'),
-	/*body('CreadoPor')
+		.isString()
+		.trim()
+		.isLength({ min: 5, max: 50 })
+        .withMessage('El nombre de la familia es obligatorio y debe de tener entre 3 a 50 cacteres'),
+	body('CreadoPor')
 		.notEmpty()
-		.withMessage('El campo CreadoPor no puede estar vacío')
 		.isInt()
-		.withMessage('El campo CreadoPor debe ser un número entero'),*/
+		.withMessage('El campo CreadoPor debe ser un número entero.'),
 ];
 
 export const updateSubFamilySchema = [
 	body('SubFamiliaId')
 		.notEmpty()
-		.withMessage('El campo ID Subfamilia no puede estar vacío')
 		.isInt()
-		.withMessage('El campo ID Subfamilia invalido'),
+		.withMessage('El campo ID subfamilia es invalido'),
 	body('FamiliaId')
 		.notEmpty()
-		.withMessage('El campo ID familia no puede estar vacío')
 		.isInt()
 		.withMessage('El campo ID familia invalido'),
-	body('NombreFamilia')
+	body('NombreSubFamilia')
 		.notEmpty()
-		.withMessage('El campo nombre de familia no puede estar vacío')
-        .length(5,50)
-		.withMessage('El nombre de la familia es demaciado largo'),
-	/*body('ActualizadoPor')
+		.isString()
+		.trim()
+		.isLength({ min: 5, max: 50 })
+		.withMessage('El nombre de la familia es obligatorio y debe de tener entre 3 a 50 cacteres'),
+	body('ActualizadoPor')
 		.notEmpty()
-		.withMessage('El campo ActualizadoPor no puede estar vacío')
 		.isInt()
-		.withMessage('El campo ActualizadoPor debe ser un número entero'),*/
+		.withMessage('El campo ActualizadoPor debe ser un número entero.'),
 ];
 
 export const disabledSubFamilySchema = [
 	body('SubFamiliaId')
-		.notEmpty()
-		.withMessage('El campo ID Subfamilia no puede estar vacío')
-		.isInt()
-		.withMessage('El campo ID Subfamilia invalido'),
-	/*body('BorradoPor')
-		.notEmpty()
-		.withMessage('El campo BorradoPor no puede estar vacío')
-		.isInt()
-		.withMessage('El campo BorradoPor debe ser un número entero'),*/
+        .notEmpty()
+        .isInt()
+        .withMessage('El campo ID familia invalido'),
 ];

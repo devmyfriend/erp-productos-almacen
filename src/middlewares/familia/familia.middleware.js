@@ -3,8 +3,6 @@ import { FamilyModel } from '../../models/familia.model.js'
 
 export const validateFamilyIdExist = async (req, res, next) => {
     const { FamiliaId } = req.body
-    console.log("Body de validateFamilyIdExist")
-    console.log(req.body)
 
     try {
 
@@ -21,8 +19,6 @@ export const validateFamilyIdExist = async (req, res, next) => {
             });
         }
 
-        console.log("ID VALIDO")
-
         next();
 
     } catch (error) {
@@ -34,8 +30,6 @@ export const validateFamilyIdExist = async (req, res, next) => {
 
 export const validateFamilyActive = async (req, res, next) => {
     const { FamiliaId } = req.body
-    console.log("Body de validateFamilyActive")
-    console.log(req.body)
 
     try {
         

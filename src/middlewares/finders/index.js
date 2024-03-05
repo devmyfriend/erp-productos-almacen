@@ -66,7 +66,7 @@ export const findLineById = async id_line => {
 		const item = await LineModel.findOne({
 			where: {
 				LineaId: id_line,
-				activo: true,
+				Activo: true,
 			},
 		});
 
