@@ -26,6 +26,10 @@ import refComboBoxRoutes from './src/routes/ref.combo.box.routes.js';
 
 import politicasMembresiaRoutes from './src/routes/politicas.membresia.routes.js';
 
+import storeRoutes from './src/routes/almacen.routes.js';
+
+import storeProducRoutes from './src/routes/almacen.producto.routes.js';
+
 // Base de datos
 import { Connection } from './src/database/mariadb.database.js';
 
@@ -74,6 +78,10 @@ const App = {
 		app.use('/api/v1/comboBox', refComboBoxRoutes);
 
 		app.use('/api/v1/politicasMembresia', politicasMembresiaRoutes);
+
+		app.use('/api/v1/almacen', storeRoutes);
+
+		app.use('/api/v1/almacen/producto', storeProducRoutes);
 
 		app.use('/', (req, res) => {
 			res.status(404).json({ error: 'error en la solicitud' });
