@@ -106,7 +106,6 @@ router.get('/', methods.findAll);
  *       500:
  *         description: Error al crear el registro.
  */
-
 router.post(
     '/',
     schemas.createComboBoxSchema,
