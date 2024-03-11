@@ -32,10 +32,6 @@ export const createComboBoxSchema = [
 ];
 
 export const updateComboBoxSchema = [
-	body('IdComboBox')
-		.notEmpty()
-		.isInt()
-		.withMessage('El campo IdComboBox debe ser un número entero.'),
 	body('Catalogo')
 		.optional()
 		.isString()
