@@ -83,12 +83,12 @@ const update = async (req, res) => {
             return res.status(400).json({ error: 'No se encontró el registro' });
         }
 
-        if (validaterefComboBox.Catalogo !== data.Catalogo) {
-            const maxIndice = await RefComboBoxModel.max('Indice', {
-                where: { Catalogo: data.Catalogo, Borrado: 0 },
-            });
-            data.Indice = maxIndice ? maxIndice + 1 : 1;
-        }
+		if (validaterefComboBox.Catalogo !== data.Catalogo) {
+			const maxIndice = await RefComboBoxModel.max('Indice', {
+				where: { Catalogo: data.Catalogo, Borrado: 0 },
+			});
+			data.Indice = maxIndice ? maxIndice + 1 : 1;
+		}
 
         await RefComboBoxModel.update(
             { ...data, ...{ ActualizadoEn: new Date() } },
