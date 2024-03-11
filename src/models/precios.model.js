@@ -9,16 +9,8 @@ export const PrecioModel = Connection.define(
 			primaryKey: true,
 			autoIncrement: true,
 		},
-		Producto: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
 		Descripcion: {
 			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		Precio: {
-			type: DataTypes.NUMBER,
 			allowNull: false,
 		},
 		Borrado: {

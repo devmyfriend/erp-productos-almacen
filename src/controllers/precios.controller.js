@@ -4,7 +4,7 @@ import { findUserById } from '../middlewares/finders/index.js';
 const findAll = async (req, res) => {
 	try {
 		const data = await PrecioModel.findAll({
-			attributes: ['PrecioId', 'Producto', 'Descripcion', 'Precio'],
+			attributes: ['PrecioId', 'Descripcion'],
 		});
 
 		if (data.length < 1) {
