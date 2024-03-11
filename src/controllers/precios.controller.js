@@ -1,4 +1,5 @@
 import { PrecioModel } from '../models/precios.model.js';
+import { findUserById } from '../middlewares/finders/index.js';
 
 const findAll = async (req, res) => {
 	try {
@@ -23,11 +24,18 @@ const findAll = async (req, res) => {
 const create = async (req, res) => {
 	try {
 		const data = req.body;
+		const userFound = await findUserById(data.CreadoPor);
 
-        const newPrecio = await PrecioModel.create({
-            ...data,
-            CreadoEn: new Date()
-        });
+
+		const newPrecio = await PrecioModel.create({
+			...data,
+			CreadoEn: new Date(),
+		});
+
+		if (!userFound.exist) {
+			return res.status(404).json({ error: 'Usuario no encontrado' });
+		}
+
 		return res.status(200).json({
 			message: 'Se ha creado el precio',
 			PrecioId: newPrecio.PrecioId,
@@ -45,17 +53,23 @@ const update = async (req, res) => {
 	try {
 		const { PrecioId } = req.params;
 		const data = req.body;
-        
+
+		const userFound = await findUserById(data.ActualizadoPor);
+
 		const precio = await PrecioModel.findByPk(PrecioId);
+
+		if (!userFound.exist) {
+			return res.status(404).json({ error: 'Usuario no encontrado' });
+		}
 
 		if (!precio) {
 			return res.status(404).json({ error: 'El precio no existe' });
 		}
 
 		await precio.update({
-            ...data,
-            ActualizadoEn: new Date()
-        });
+			...data,
+			ActualizadoEn: new Date(),
+		});
 
 		return res.status(200).json({
 			message: 'Se ha actualizado el precio',
@@ -74,7 +88,13 @@ const disable = async (req, res) => {
 	try {
 		const precioBody = req.body;
 
+		const userFound = await findUserById(precioBody.BorradoPor);
+
 		const precio = await PrecioModel.findByPk(precioBody.PrecioId);
+
+		if (!userFound.exist) {
+			return res.status(404).json({ error: 'Usuario no encontrado' });
+		}
 
 		if (!precio) {
 			return res.status(404).json({ error: 'Precio no encontrado' });
