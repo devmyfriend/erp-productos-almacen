@@ -18,7 +18,7 @@ import productsFinallyRoutes from './src/routes/producto.terminado.routes.js';
 
 import productsVendorRoutes from './src/routes/producto.proveedor.routes.js';
 
-import productSubscriptionRoutes from './src/routes/producto.subscripcion.routes.js';
+import productSubscriptionRoutes from './src/routes/producto.suscripcion.routes.js';
 
 import productComboRoutes from './src/routes/producto.combo.routes.js';
 
@@ -71,7 +71,7 @@ const App = {
 
 		app.use('/api/v1/productos/proveedor', productsVendorRoutes);
 
-		app.use('/api/v1/productos/subscripcion', productSubscriptionRoutes);
+		app.use('/api/v1/productos/suscripcion', productSubscriptionRoutes);
 
 		app.use('/api/v1/productos/combo', productComboRoutes);
 
