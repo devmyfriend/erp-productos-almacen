@@ -1,10 +1,9 @@
-import { Router } from "express";
-import { methods } from "../controllers/ref.combo.box.controller.js";
-import { validateSchema } from "../middlewares/express-validator/index.js";
-import * as schemas from "../schemas/ref.combo.box.schema.js";
+import { Router } from 'express';
+import { methods } from '../controllers/ref.combo.box.controller.js';
+import { validateSchema } from '../middlewares/express-validator/index.js';
+import * as schemas from '../schemas/ref.combo.box.schema.js';
 
 const router = Router();
-
 
 /**
  * @swagger
@@ -38,12 +37,6 @@ const router = Router();
  *                     type: string
  *                     description: El valor del ComboBox.
  *                     example: "Valor de ejemplo"
- *                   CreadoPor:
- *                     type: integer
- *                     description: El ID del usuario que crea el ComboBox.
- *                     example: 1
- *       500:
- *         description: Error al obtener los datos.
  */
 
 router.get('/', methods.findAll);
@@ -106,20 +99,21 @@ router.get('/', methods.findAll);
  *       500:
  *         description: Error al crear el registro.
  */
-
-router.post(
-    '/',
-    schemas.createComboBoxSchema,
-    validateSchema,
-    methods.create,
-);
+router.post('/', schemas.createComboBoxSchema, validateSchema, methods.create);
 
 /**
  * @swagger
- * /api/v1/comboBox:
+ * /api/v1/refComboBox/{IdComboBox}:
  *   put:
- *     summary: Actualizar un ComboBox
+ *     summary: Actualizar un registro de refComboBox existente
  *     tags: [ComboBox]
+ *     parameters:
+ *       - in: path
+ *         name: IdComboBox
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del registro de refComboBox a actualizar
  *     requestBody:
  *       required: true
  *       content:
@@ -127,33 +121,29 @@ router.post(
  *           schema:
  *             type: object
  *             properties:
- *               IdComboBox:
- *                 type: integer
- *                 description: El ID del ComboBox a actualizar.
- *                 example: 1
  *               Catalogo:
  *                 type: string
- *                 description: El catálogo del ComboBox.
- *                 example: "Catálogo de ejemplo"
+ *                 description: Nombre del catálogo.
+ *                 example: "Test PUT PUT"
  *               Nivel:
  *                 type: integer
- *                 description: El nivel del ComboBox.
+ *                 description: Nivel del elemento.
  *                 example: 1
  *               ClaveElemento:
  *                 type: string
- *                 description: La clave del elemento del ComboBox.
- *                 example: "Clave de ejemplo"
+ *                 description: Clave del elemento.
+ *                 example: "AMLO"
  *               Valor:
  *                 type: string
- *                 description: El valor del ComboBox.
- *                 example: "Valor de ejemplo"
+ *                 description: Valor del elemento.
+ *                 example: "AMLO"
  *               ActualizadoPor:
- *                type: integer
- *                description: El ID del usuario que actualiza el ComboBox.
- *                example: 1
+ *                 type: integer
+ *                 description: El ID del usuario que actualiza el registro.
+ *                 example: 2
  *     responses:
  *       200:
- *         description: ComboBox actualizado exitosamente.
+ *         description: Registro de refComboBox actualizado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -161,19 +151,43 @@ router.post(
  *               properties:
  *                 message:
  *                   type: string
- *                   description: Mensaje de confirmación.
+ *                   description: Mensaje de éxito.
  *                   example: "Se ha editado el registro"
  *       400:
  *         description: No se encontró el registro.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Mensaje de error.
+ *                   example: "No se encontró el registro"
+ *       404:
+ *         description: Usuario no encontrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Mensaje de error.
+ *                   example: "Usuario no encontrado"
  *       500:
  *         description: Error al editar el registro.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Mensaje de error.
+ *                   example: "Error al editar el registro"
  */
-
-router.put('/',
-schemas.updateComboBoxSchema,
-validateSchema,
-methods.update);
-
+router.put('/:IdComboBox', schemas.updateComboBoxSchema, validateSchema, methods.update);
 
 /**
  * @swagger
@@ -213,9 +227,11 @@ methods.update);
  *       500:
  *         description: Error al eliminar el registro.
  */
-router.delete('/',
-schemas.deleteComboBoxSchema,
-validateSchema,
-methods.disable);
+router.delete(
+	'/',
+	schemas.deleteComboBoxSchema,
+	validateSchema,
+	methods.disable,
+);
 
 export default router;
