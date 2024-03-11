@@ -9,14 +9,14 @@ const router = Router();
  * @swagger
  * tags:
  *   - name: Suscripciones
- *     description: Operaciones relacionadas con las Subscripciones
+ *     description: Operaciones relacionadas con las Suscripciones
  */
 
 /**
  * @swagger
  * /api/v1/productos/suscripcion:
  *   get:
- *     summary: Obtener una lista general de las Subscripciones
+ *     summary: Obtener una lista general de las Suscripciones
  *     tags: [ Suscripciones]
  *     responses:
  *       200:
@@ -58,7 +58,7 @@ router.get('/', methods.findAll);
  * @swagger
  * /api/v1/productos/suscripcion:
  *   post:
- *     summary: Crear una nueva Subscripciones
+ *     summary: Crear una nueva Suscripciones
  *     tags: [Suscripciones]
  *     requestBody:
  *       required: true
