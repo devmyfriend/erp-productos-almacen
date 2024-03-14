@@ -1,8 +1,9 @@
-import { PoliticasMembresiaModel } from '../models/politicas.membresia.model.js';
+import { MembershipPoliciesModel } from '../models/politicas.membresia.model.js';
+import { findUserById } from '../middlewares/finders/index.js';
 
 const findAll = async (req, res) => {
 	try {
-		const data = await PoliticasMembresiaModel.findAll({
+		const data = await MembershipPoliciesModel.findAll({
 			attributes: [
 				'PoliticasMembreciasId',
 				'Descripcion',
@@ -35,28 +36,33 @@ const findAll = async (req, res) => {
 const create = async (req, res) => {
 	try {
 		const data = req.body;
+		const userFound = await findUserById(data.CreadoPor);
 
-		const validatePoliticasMembresia = await PoliticasMembresiaModel.findOne({
+		const validate = await MembershipPoliciesModel.findOne({
 			where: {
 				Descripcion: data.Descripcion,
 				Borrado: 0,
 			},
 		});
 
-		if (validatePoliticasMembresia) {
+		if (!userFound.exist) {
+			return res.status(404).json({ error: 'Usuario no encontrado' });
+		}
+
+		if (validate) {
 			return res
 				.status(404)
 				.json({ error: 'La política de membresía ya existe' });
 		}
 
-		const createPoliticasMembresia = await PoliticasMembresiaModel.create(data);
+		const createMembership = await MembershipPoliciesModel.create(data);
 
 		return res.status(200).json({
 			message: 'Se ha creado la política de membresía',
 			response: [
 				{
 					PoliticasMembreciasId:
-						createPoliticasMembresia.dataValues.PoliticasMembreciasId,
+						createMembership.dataValues.PoliticasMembreciasId,
 				},
 			],
 		});
@@ -74,19 +80,24 @@ const update = async (req, res) => {
 		const { PoliticasMembreciaId } = req.params;
 		const data = req.body;
 
-		const validatePoliticasMembresia = await PoliticasMembresiaModel.findOne({
+		const userFound = await findUserById(data.ActualizadoPor);
+
+		const validate = await MembershipPoliciesModel.findOne({
 			where: {
 				PoliticasMembreciasId,
 				Borrado: 0,
 			},
 		});
 
-		if (!validatePoliticasMembresia) {
+		if (!userFound.exist) {
+			return res.status(404).json({ error: 'Usuario no encontrado' });
+		}
+
+		if (!validate) {
 			return res
 				.status(404)
 				.json({ error: 'La política de membresía no existe' });
 		}
-
 
 		return res
 			.status(200)
@@ -102,7 +113,26 @@ const remove = async (req, res) => {
 	try {
 		const body = req.body;
 
-		const deletePoliticasMembresia = await PoliticasMembresiaModel.update(
+		const userFound = await findUserById(body.BorradoPor);
+
+		const validate = await MembershipPoliciesModel.findOne({
+			where: {
+				PoliticasMembreciasId: body.PoliticasMembreciasId,
+				Borrado: 0,
+			},
+		});
+
+		if (!userFound.exist) {
+			return res.status(404).json({ error: 'Usuario no encontrado' });
+		}
+
+		if (!validate) {
+			return res
+				.status(404)
+				.json({ error: 'La política de membresía no existe' });
+		}
+
+		await MembershipPoliciesModel.update(
 			{
 				Borrado: 1,
 			},
@@ -112,11 +142,6 @@ const remove = async (req, res) => {
 				},
 			},
 		);
-		if (deletePoliticasMembresia) {
-			return res
-				.status(404)
-				.json({ error: 'La política de membresía no existe' });
-		}
 
 		return res
 			.status(200)
@@ -131,5 +156,5 @@ export const methods = {
 	findAll,
 	create,
 	update,
-    remove
+	remove,
 };

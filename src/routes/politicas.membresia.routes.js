@@ -7,7 +7,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api/v1/politicasMembresia:
+ * /api/v1/politicasmembresia:
  *   get:
  *     summary: Obtener todas las políticas de membresía
  *     tags: [PoliticasMembresia]
@@ -65,7 +65,7 @@ router.get('/', methods.findAll);
 
 /**
  * @swagger
- * /api/v1/politicasMembresia:
+ * /api/v1/politicasmembresia:
  *   post:
  *     summary: Crear una nueva política de membresía
  *     tags: [PoliticasMembresia]
@@ -137,13 +137,13 @@ methods.create);
 
 /**
  * @swagger
- * /api/v1/politicasMembresia/{PoliticasMembresiaId}:
+ * /api/v1/politicasmembresia/{PoliticasMembresiaId}:
  *   put:
  *     summary: Actualizar una política de membresía existente
  *     tags: [PoliticasMembresia]
  *     parameters:
  *       - in: path
- *         name: PoliticasMembresiaId
+ *         name: PoliticasMembreciaId
  *         schema:
  *           type: integer
  *         required: true
@@ -205,14 +205,14 @@ methods.create);
  *         description: Error interno del servidor.
  */
 
-router.put('/',
+router.put('/:PoliticasMembresiaId',
 schemas.updatePoliticasMembresiaSchema,
 validateSchema,
 methods.update);
 
 /**
  * @swagger
- * /api/v1/politicasMembresia:
+ * /api/v1/politicasmembresia:
  *   delete:
  *     summary: Eliminar una política de membresía
  *     tags: [PoliticasMembresia]

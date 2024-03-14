@@ -1,34 +1,35 @@
 import { RefComboBoxModel } from '../models/ref.combo.box.model.js';
-
+import { findUserById } from '../middlewares/finders/index.js';
 
 const findAll = async (req, res) => {
-    try {
-        const refComboBox = await RefComboBoxModel.findAll({
-            attributes: [
-                'IdComboBox',
-                'Catalogo',
-                'Nivel',
-                'ClaveElemento',
-                'Indice',
-                'Valor',
-                'CreadoPor',
-            ],
-            where: {
-                Borrado: 0,
-            },
-        });
-        return res.status(200).json(refComboBox);
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            error: 'Error al obtener los datos',
-        });
-    }
+	try {
+		const refComboBox = await RefComboBoxModel.findAll({
+			attributes: [
+				'IdComboBox',
+				'Catalogo',
+				'Nivel',
+				'ClaveElemento',
+				'Indice',
+				'Valor',
+			],
+			where: {
+				Borrado: 0,
+			},
+		});
+		return res.status(200).json(refComboBox);
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({
+			error: 'Error al obtener los datos',
+		});
+	}
 };
 
 const create = async (req, res) => {
 	const createComboBoxBody = req.body;
 	try {
+		const userFound = await findUserById(createComboBoxBody.CreadoPor);
+
 		const lastComboBox = await RefComboBoxModel.findOne({
 			where: {
 				Catalogo: createComboBoxBody.Catalogo,
@@ -37,15 +38,21 @@ const create = async (req, res) => {
 			order: [['Indice', 'DESC']],
 		});
 
+		if (!userFound.exist) {
+			return res.status(404).json({ error: 'Usuario no encontrado' });
+		}
+
 		const nextIndice = lastComboBox ? lastComboBox.Indice + 1 : 1;
 
-		await RefComboBoxModel.create({
+		const newComboBox = await RefComboBoxModel.create({
 			...createComboBoxBody,
 			Indice: nextIndice,
 			CreadoEn: new Date(),
 			Valor: createComboBoxBody.Valor,
 		});
-		return res.status(200).json(createComboBoxBody);
+		return res.status(200).json({
+			message: 'Registro creado con éxito, el id es: ' + newComboBox.IdComboBox,
+		});
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({
@@ -54,33 +61,39 @@ const create = async (req, res) => {
 	}
 };
 
-
 const update = async (req, res) => {
+    const { IdComboBox } = req.params;
     const data = req.body;
     try {
+        const userFound = await findUserById(data.ActualizadoPor);
+
         const validaterefComboBox = await RefComboBoxModel.findOne({
             where: {
-                IdComboBox: data.IdComboBox,
+                IdComboBox: IdComboBox,
                 Borrado: 0,
             },
         });
 
+        if (!userFound.exist) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+        
         if (!validaterefComboBox) {
             return res.status(400).json({ error: 'No se encontró el registro' });
         }
 
-        if (validaterefComboBox.Catalogo !== data.Catalogo) {
-            const maxIndice = await RefComboBoxModel.max('Indice', {
-                where: { Catalogo: data.Catalogo, Borrado: 0 },
-            });
-            data.Indice = maxIndice ? maxIndice + 1 : 1;
-        }
+		if (validaterefComboBox.Catalogo !== data.Catalogo) {
+			const maxIndice = await RefComboBoxModel.max('Indice', {
+				where: { Catalogo: data.Catalogo, Borrado: 0 },
+			});
+			data.Indice = maxIndice ? maxIndice + 1 : 1;
+		}
 
-            await RefComboBoxModel.update(
+        await RefComboBoxModel.update(
             { ...data, ...{ ActualizadoEn: new Date() } },
             {
                 where: {
-                    IdComboBox: data.IdComboBox,
+                    IdComboBox: IdComboBox,
                 },
             },
         );
@@ -98,18 +111,21 @@ const update = async (req, res) => {
 const disable = async (req, res) => {
 	const data = req.body;
 	try {
+		const userFound = await findUserById(data.BorradoPor);
+		const validaterefComboBox = await RefComboBoxModel.findOne({
+			where: {
+				IdComboBox: data.IdComboBox,
+				Borrado: 0,
+			},
+		});
 
-        const validaterefComboBox = await RefComboBoxModel.findOne({
-            where: {    
-                IdComboBox: data.IdComboBox,
-                Borrado: 0,
-            },
-        });
+		if (!userFound.exist) {
+			return res.status(404).json({ error: 'Usuario no encontrado' });
+		}
 
-        if (!validaterefComboBox) {
-            return res.status(400).json({ error: 'No se encontró el registro' });
-        }
-
+		if (validaterefComboBox) {
+			return res.status(400).json({ error: 'No se encontró el registro' });
+		}
 
 		await RefComboBoxModel.update(
 			{ ...data, BorradoEn: new Date(), Borrado: true },
