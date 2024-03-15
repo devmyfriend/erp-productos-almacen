@@ -15,10 +15,10 @@ const findAll = async (req, res) => {
 				'NombreProducto',
 				'DescripcionProducto',
 				'LineaId',
+				'Borrado',
 				'CreadoEn',
 			],
 			where: {
-				Borrado: 0,
 				TipoProductoId: 6, // -> PRODUCTOS TERMINADOS
 			},
 		});
