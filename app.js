@@ -75,7 +75,7 @@ const App = {
 
 		app.use('/api/v1/productos/combo', productComboRoutes);
 
-		app.use('/api/v1/politicasMembresia', politicasMembresiaRoutes);
+		app.use('/api/v1/politicas/membresia', politicasMembresiaRoutes);
 
 		app.use('/api/v1/almacen', storeRoutes);
 

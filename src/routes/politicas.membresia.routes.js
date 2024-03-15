@@ -7,7 +7,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api/v1/politicasmembresia:
+ * /api/v1/politicas/membresia:
  *   get:
  *     summary: Obtener todas las políticas de membresía
  *     tags: [Politicas Membresia]
@@ -65,7 +65,7 @@ router.get('/', methods.findAll);
 
 /**
  * @swagger
- * /api/v1/politicasmembresia:
+ * /api/v1/politicas/membresia:
  *   post:
  *     summary: Crear una nueva política de membresía
  *     tags: [Politicas Membresia]
@@ -133,7 +133,7 @@ methods.create);
 
 /**
  * @swagger
- * /api/v1/politicasmembresia/{PoliticasMembreciasId}:
+ * /api/v1/politicas/membresia/{PoliticasMembreciasId}:
  *   put:
  *     summary: Actualizar una política de membresía existente
  *     tags: [Politicas Membresia]
@@ -208,7 +208,7 @@ methods.update);
 
 /**
  * @swagger
- * /api/v1/politicasmembresia:
+ * /api/v1/politicas/membresia:
  *   delete:
  *     summary: Eliminar una política de membresía
  *     tags: [Politicas Membresia]
