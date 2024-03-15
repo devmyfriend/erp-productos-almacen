@@ -118,7 +118,12 @@ router.get('/', methods.findAll);
  *                         example: false
  */
 
-router.get('/detalle/:id', methods.findById);
+router.get(
+	'/detalle/:id',
+	schemas.findByCode,
+	validateSchema,
+	methods.findById,
+);
 
 /**
  * @swagger

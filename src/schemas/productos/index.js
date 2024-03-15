@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 
 export const createProductPosSchema = [
 	body('CodigoProducto')
@@ -217,3 +217,9 @@ export const enableProductPosSchema =[
 		.isInt()
 		.withMessage('El campo ActualizadoPor debe ser un número entero.'),
 ]
+
+export const findByCode =[
+	param('id', 'El parámetro debe ser una cadena de texto')
+		.matches(/^[a-zA-Z0-9-]+$/)
+		.notEmpty(),
+];
