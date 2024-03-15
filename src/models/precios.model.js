@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { Connection } from '../database/mariadb.database.js';
 
-export const PrecioModel = Connection.define(
+export const PriceModel = Connection.define(
 	'Precios',
 	{
 		PrecioId: {
@@ -18,6 +18,9 @@ export const PrecioModel = Connection.define(
 		},
 		BorradoEn: {
 			type: DataTypes.DATE,
+		},
+		BorradoPor: {
+			type: DataTypes.INTEGER
 		},
 		CreadoEn: {
 			type: DataTypes.DATE,

@@ -22,8 +22,6 @@ import productSubscriptionRoutes from './src/routes/producto.suscripcion.routes.
 
 import productComboRoutes from './src/routes/producto.combo.routes.js';
 
-import refComboBoxRoutes from './src/routes/ref.combo.box.routes.js';
-
 import politicasMembresiaRoutes from './src/routes/politicas.membresia.routes.js';
 
 import storeRoutes from './src/routes/almacen.routes.js';
@@ -76,8 +74,6 @@ const App = {
 		app.use('/api/v1/productos/suscripcion', productSubscriptionRoutes);
 
 		app.use('/api/v1/productos/combo', productComboRoutes);
-
-		app.use('/api/v1/comboBox', refComboBoxRoutes);
 
 		app.use('/api/v1/politicasMembresia', politicasMembresiaRoutes);
 
