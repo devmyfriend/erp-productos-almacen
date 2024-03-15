@@ -1,16 +1,14 @@
 import { body} from 'express-validator';
 
 export const createPoliticasMembresiaSchema = [
-    body('PoliticaMembreciaId')
-    .notEmpty()
-    .isInt()
-    .withMessage('El campo PoliticaMembreciaId es obligatorio y debe ser un número entero.'),
     body('Descripcion')
     .notEmpty()
     .isString()
     .withMessage('El campo Descripcion es obligatorio y debe ser una cadena de texto.'),
     body('TipoPeriodo')
     .notEmpty()
+    .isLength({ min: 1, max: 10 })
+    .withMessage('El campo TipoPeriodo no puede tener mas de 10 caracteres.')
     .isString()
     .withMessage('El campo TipoPeriodo es obligatorio y debe ser una cadena de texto.'),
     body('ValorPeriodo')
@@ -46,8 +44,10 @@ export const updatePoliticasMembresiaSchema = [
     .withMessage('El campo Descripcion debe ser una cadena de texto.'),
     body('TipoPeriodo')
     .optional()
+    .isLength({ min: 1, max: 10 })
+    .withMessage('El campo TipoPeriodo no puede tener mas de 10 caracteres.')
     .isString()
-    .withMessage('El campo TipoPeriodo debe ser una cadena de texto.'),
+    .withMessage('El campo TipoPeriodo es obligatorio y debe ser una cadena de texto.'),
     body('ValorPeriodo')
     .optional()
     .isInt()

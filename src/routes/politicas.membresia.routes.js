@@ -7,10 +7,10 @@ const router = Router();
 
 /**
  * @swagger
- * /api/v1/politicasMembresia:
+ * /api/v1/politicas/membresia:
  *   get:
  *     summary: Obtener todas las políticas de membresía
- *     tags: [PoliticasMembresia]
+ *     tags: [Politicas Membresia]
  *     responses:
  *       200:
  *         description: Lista de políticas de membresía.
@@ -35,7 +35,7 @@ const router = Router();
  *                       TipoPeriodo:
  *                         type: string
  *                         description: Tipo de periodo de la política de membresía.
- *                         example: "Tipo de periodo de ejemplo"
+ *                         example: "Corto"
  *                       ValorPeriodo:
  *                         type: integer
  *                         description: Valor del periodo de la política de membresía.
@@ -65,10 +65,10 @@ router.get('/', methods.findAll);
 
 /**
  * @swagger
- * /api/v1/politicasMembresia:
+ * /api/v1/politicas/membresia:
  *   post:
  *     summary: Crear una nueva política de membresía
- *     tags: [PoliticasMembresia]
+ *     tags: [Politicas Membresia]
  *     requestBody:
  *       required: true
  *       content:
@@ -76,10 +76,6 @@ router.get('/', methods.findAll);
  *           schema:
  *             type: object
  *             properties:
- *               PoliticasMembreciasId:
- *                 type: integer
- *                 description: ID de la política de membresía.
- *                 example: 123123
  *               Descripcion:
  *                 type: string
  *                 description: Descripción de la política de membresía.
@@ -87,7 +83,7 @@ router.get('/', methods.findAll);
  *               TipoPeriodo:
  *                 type: string
  *                 description: Tipo de periodo de la política de membresía.
- *                 example: "Tipo de periodo de ejemplo"
+ *                 example: "Corto"
  *               ValorPeriodo:
  *                 type: integer
  *                 description: Valor del periodo de la política de membresía.
@@ -95,7 +91,7 @@ router.get('/', methods.findAll);
  *               EsGrupal:
  *                 type: boolean
  *                 description: Indica si la política de membresía es grupal.
- *                 example: false
+ *                 example: 1
  *               MinimoGrupal:
  *                 type: integer
  *                 description: Mínimo grupal de la política de membresía.
@@ -107,11 +103,11 @@ router.get('/', methods.findAll);
  *               EsPremium:
  *                 type: boolean
  *                 description: Indica si la política de membresía es premium.
- *                 example: false
+ *                 example: 1
  *               CreadoPor:
  *                 type: integer
  *                 description: ID del usuario que crea la política de membresía.
- *                 example: 1
+ *                 example: 2
  *     responses:
  *       200:
  *         description: Política de membresía creada exitosamente.
@@ -137,13 +133,13 @@ methods.create);
 
 /**
  * @swagger
- * /api/v1/politicasMembresia/{PoliticasMembresiaId}:
+ * /api/v1/politicas/membresia/{PoliticasMembreciasId}:
  *   put:
  *     summary: Actualizar una política de membresía existente
- *     tags: [PoliticasMembresia]
+ *     tags: [Politicas Membresia]
  *     parameters:
  *       - in: path
- *         name: PoliticasMembresiaId
+ *         name: PoliticasMembreciasId
  *         schema:
  *           type: integer
  *         required: true
@@ -162,7 +158,7 @@ methods.create);
  *               TipoPeriodo:
  *                 type: string
  *                 description: Tipo de periodo de la política de membresía.
- *                 example: "Tipo de periodo de ejemplo"
+ *                 example: "Corto"
  *               ValorPeriodo:
  *                 type: integer
  *                 description: Valor del periodo de la política de membresía.
@@ -183,10 +179,10 @@ methods.create);
  *                 type: boolean
  *                 description: Indica si la política de membresía es premium.
  *                 example: false
- *               CreadoPor:
+ *               ActualizadoPor:
  *                 type: integer
  *                 description: ID del usuario que crea la política de membresía.
- *                 example: 1
+ *                 example: 2
  *     responses:
  *       200:
  *         description: Política de membresía actualizada exitosamente.
@@ -205,17 +201,17 @@ methods.create);
  *         description: Error interno del servidor.
  */
 
-router.put('/',
+router.put('/:PoliticasMembreciasId',
 schemas.updatePoliticasMembresiaSchema,
 validateSchema,
 methods.update);
 
 /**
  * @swagger
- * /api/v1/politicasMembresia:
+ * /api/v1/politicas/membresia:
  *   delete:
  *     summary: Eliminar una política de membresía
- *     tags: [PoliticasMembresia]
+ *     tags: [Politicas Membresia]
  *     requestBody:
  *       required: true
  *       content:
@@ -226,11 +222,11 @@ methods.update);
  *               PoliticasMembreciasId:
  *                 type: integer
  *                 description: ID de la política de membresía a eliminar.
- *                 example: 123123
+ *                 example: 1
  *               BorradoPor:
  *                 type: integer
  *                 description: ID del usuario que elimina la política de membresía.
- *                 example: 1
+ *                 example: 2
  *     responses:
  *       200:
  *         description: Política de membresía eliminada exitosamente.

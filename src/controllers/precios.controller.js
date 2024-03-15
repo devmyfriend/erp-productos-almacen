@@ -1,9 +1,13 @@
-import { PrecioModel } from '../models/precios.model.js';
+import { PriceModel } from '../models/precios.model.js';
 import { findUserById } from '../middlewares/finders/index.js';
 
 const findAll = async (req, res) => {
 	try {
-		const data = await PrecioModel.findAll({
+		const data = await PriceModel.findAll({
+			where: {
+				Borrado: 0,
+			},
+
 			attributes: ['PrecioId', 'Descripcion'],
 		});
 
@@ -31,14 +35,14 @@ const create = async (req, res) => {
 			return res.status(404).json({ error: 'Usuario no encontrado' });
 		}
 
-		const newPrecio = await PrecioModel.create({
+		const newPrice = await PriceModel.create({
 			...data,
 			CreadoEn: new Date(),
 		});
 
 		return res.status(200).json({
 			message: 'Se ha creado el precio',
-			PrecioId: newPrecio.PrecioId,
+			PrecioId: newPrice.PrecioId,
 		});
 	} catch (error) {
 		console.log(error);
@@ -56,18 +60,28 @@ const update = async (req, res) => {
 
 		const userFound = await findUserById(data.ActualizadoPor);
 
-		const precio = await PrecioModel.findByPk(PrecioId);
+		const validate = await PriceModel.findOne({
+			where: {
+				PrecioId,
+				Borrado: 0,
+			},
+		});
+
+		if (!validate) {
+			return res.status(404).json({ error: 'Precio no encontrado' });
+		}
+		
+		const price = await PriceModel.findByPk(PrecioId);
 
 		if (!userFound.exist) {
 			return res.status(404).json({ error: 'Usuario no encontrado' });
 		}
 
-		if (!precio) {
+		if (!price) {
 			return res.status(404).json({ error: 'El precio no existe' });
 		}
 
-
-		await precio.update({
+		await price.update({
 			...data,
 			ActualizadoEn: new Date(),
 		});
@@ -87,25 +101,40 @@ const update = async (req, res) => {
 
 const disable = async (req, res) => {
 	try {
-		const precioBody = req.body;
+		const pricebody = req.body;
 
-		const userFound = await findUserById(precioBody.BorradoPor);
+		const userFound = await findUserById(pricebody.BorradoPor);
 
-		const precio = await PrecioModel.findByPk(precioBody.PrecioId);
+		const validate = await PriceModel.findOne({
+			where: {
+				PrecioId: precioBody.PrecioId,
+				Borrado: 0,
+			},
+		});
 
 		if (!userFound.exist) {
 			return res.status(404).json({ error: 'Usuario no encontrado' });
 		}
 
-		if (!precio) {
+		if (!validate) {
 			return res.status(404).json({ error: 'Precio no encontrado' });
 		}
 
-		await precio.update({ Borrado: 1 });
+		await PriceModel.update(
+			{
+				Borrado: 1,
+				BorradoPor: pricebody.BorradoPor,
+				BorradoEn: new Date(),
+			},
+			{
+				where: {
+					PrecioId: pricebody.PrecioId,
+				},
+			},
+		);
 
 		return res.status(200).json({
 			message: 'Se ha eliminado el precio',
-			PrecioId: precio.PrecioId,
 		});
 	} catch (error) {
 		console.log(error);
