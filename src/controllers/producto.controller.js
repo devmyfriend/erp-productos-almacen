@@ -1,3 +1,7 @@
+import {
+	findAllItemByCode,
+	findUserById,
+} from '../middlewares/finders/index.js';
 import { ProductModel } from '../models/producto.model.js';
 
 const findAll = async (req, res) => {
@@ -64,7 +68,43 @@ const findById = async (req, res) => {
 	}
 };
 
+const enable = async (req, res) => {
+	try {
+		const data = req.body;
+
+		const productFound = await findAllItemByCode(data.CodigoProducto);
+
+		const userFound = await findUserById(data.ActualizadoPor);
+
+		if (!userFound.exist) {
+			return res.status(404).json({ error: 'Usuario no encontrado' });
+		}
+
+		if (!productFound.exist) {
+			return res.status(404).json({ error: 'No se ha encontrado el producto' });
+		}
+
+		await ProductModel.update(
+			{ ...data, ActualizadoEn: new Date(), BorradoEn: null, Borrado: false },
+			{
+				where: {
+					CodigoProducto: data.CodigoProducto,
+				},
+			},
+		);
+
+		return res.status(200).json({ message: 'Producto activado' });
+	} catch (error) {
+		console.log(error);
+
+		return res.status(500).json({
+			message: 'Error interno del servidor',
+		});
+	}
+};
+
 export const methods = {
 	findAll,
 	findById,
+	enable,
 };

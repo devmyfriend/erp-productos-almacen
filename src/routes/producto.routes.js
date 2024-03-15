@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { methods } from '../controllers/producto.controller.js';
-import * as middleware from './../middlewares/express-validator/index.js';
-import { param } from 'express-validator';
+import { validateSchema } from '../middlewares/express-validator/index.js';
+import * as schemas from '../schemas/productos/index.js';
 
 const router = Router();
 
@@ -120,11 +120,46 @@ router.get('/', methods.findAll);
 
 router.get('/detalle/:id', methods.findById);
 
-// router.get(
-// 	':id',
-// 	param('id', 'El parametro debe ser un entero').isNumeric().notEmpty(),
-// 	middleware.validateSchema,
-// 	methods.findById,
-// );
+/**
+ * @swagger
+ * /api/v1/productos/activar:
+ *   put:
+ *     summary: Habilitar un producto
+ *     tags: [Catálogo de productos]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               CodigoProducto:
+ *                 type: string
+ *                 minLength: 3
+ *                 maxLength: 20
+ *                 example: "202000114"
+ *               ActualizadoPor:
+ *                 type: integer
+ *                 example: 123
+ *     responses:
+ *       200:
+ *         description: Producto activado exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de confirmación.
+ *                   example: "Producto activado"
+
+ */
+router.put(
+	'/activar',
+	schemas.enableProductPosSchema,
+	validateSchema,
+	methods.enable,
+);
 
 export default router;

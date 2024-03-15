@@ -201,3 +201,19 @@ export const deleteProductPosSchema =[
 		.isInt()
 		.withMessage('El campo BorradoPor debe ser un número entero.'),
 ]
+
+
+export const enableProductPosSchema =[
+	body('CodigoProducto')
+		.notEmpty()
+		.isString()
+		.trim()
+		.isLength({ min: 3, max: 20 })
+		.withMessage(
+			'El Código del Producto es obligatorio y debe tener entre 3 y 20 caracteres.',
+		),
+		body('ActualizadoPor')
+		.notEmpty()
+		.isInt()
+		.withMessage('El campo ActualizadoPor debe ser un número entero.'),
+]
