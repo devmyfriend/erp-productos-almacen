@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 
 export const createProductPosSchema = [
 	body('CodigoProducto')
@@ -201,3 +201,25 @@ export const deleteProductPosSchema =[
 		.isInt()
 		.withMessage('El campo BorradoPor debe ser un número entero.'),
 ]
+
+
+export const enableProductPosSchema =[
+	body('CodigoProducto')
+		.notEmpty()
+		.isString()
+		.trim()
+		.isLength({ min: 3, max: 20 })
+		.withMessage(
+			'El Código del Producto es obligatorio y debe tener entre 3 y 20 caracteres.',
+		),
+		body('ActualizadoPor')
+		.notEmpty()
+		.isInt()
+		.withMessage('El campo ActualizadoPor debe ser un número entero.'),
+]
+
+export const findByCode =[
+	param('id', 'El parámetro debe ser una cadena de texto')
+		.matches(/^[a-zA-Z0-9-]+$/)
+		.notEmpty(),
+];
