@@ -10,8 +10,43 @@ const findAll = async (req, res) => {
 				'LineaId',
 				'CreadoEn',
 			],
+		});
+
+		if (data.length < 1) {
+			return res.status(404).json({ error: 'No hay datos disponibles' });
+		}
+
+		return res.status(200).json({ response: data });
+	} catch (error) {
+		console.log(error);
+
+		return res.status(500).json({
+			message: 'Error interno del servidor',
+		});
+	}
+};
+
+const findById = async (req, res) => {
+	const id = req.params.id;
+	try {
+		const data = await ProductModel.findAll({
+			attributes: [
+				'NombreProducto',
+				'DescripcionProducto',
+				'UnidadBase',
+				'UnidadCompra',
+				'UnidadVenta',
+				'UnidadFiscal',
+				'ClaveProductoServicio',
+				'ClaveUnidadSat',
+				'ImpuestoCompuestoId',
+				'LineaId',
+				'CategoriaId_1',
+				'CategoriaId_2',
+				'Borrado',
+			],
 			where: {
-				Borrado: 0,
+				CodigoProducto: id,
 			},
 		});
 
@@ -31,4 +66,5 @@ const findAll = async (req, res) => {
 
 export const methods = {
 	findAll,
+	findById,
 };

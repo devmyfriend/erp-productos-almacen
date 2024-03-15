@@ -15,10 +15,10 @@ const findAll = async (req, res) => {
 				'NombreProducto',
 				'DescripcionProducto',
 				'LineaId',
+				'Borrado',
 				'CreadoEn',
 			],
 			where: {
-				Borrado: 0,
 				TipoProductoId: 9, // -> COMBO
 			},
 		});
@@ -128,7 +128,7 @@ const disable = async (req, res) => {
 	}
 
 	await ProductModel.update(
-		{ ...data, BorradoEn: new Date(), Borrado: true,  },
+		{ ...data, BorradoEn: new Date(), Borrado: true },
 		{
 			where: {
 				CodigoProducto: data.CodigoProducto,
