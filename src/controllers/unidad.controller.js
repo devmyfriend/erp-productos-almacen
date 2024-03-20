@@ -1,4 +1,4 @@
-import { UnitModel } from "../models/unidad.model"
+import { UnitModel } from "../models/unidad.model.js"
 
 
 const findAll = async ( req, res ) =>{
@@ -134,7 +134,7 @@ const update = async ( req, res ) =>{
         })
 
     }catch( error ){
-        return res.status(500|).send({
+        return res.status(500).send({
             message: 'Error interno del servidor'
         })
     }
@@ -155,7 +155,8 @@ const disable = async ( req, res ) =>{
         })
 
         return res.status(200).send({
-             message: 'Se ha borrado la Unidad'
+             message: 'Se ha borrado la Unidad',
+             data
         })
 
     }catch( error ){
