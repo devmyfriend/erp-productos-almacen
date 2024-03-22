@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { methods } from "../controllers/unidad.controller.js";
 import * as schema from '../schemas/unidades/index.js';
+import { validateSchema } from "../middlewares/express-validator/index.js";
+import { validateFindUnitName, validateUnitId, validateUnitName } from "../middlewares/unit/index.js";
 
 
 const router = Router()
@@ -47,7 +49,7 @@ const router = Router()
  *                       type: object
  */
 
-router.post('/', schema.creatUnitSchema, methods.create)
+router.post('/', schema.creatUnitSchema, validateSchema, validateUnitName, methods.create)
 
 /**
  * @swagger
@@ -76,7 +78,7 @@ router.post('/', schema.creatUnitSchema, methods.create)
  *                       type: object
  */
 
-router.get( '/:unitid', schema.findById, methods.findById )
+router.get( '/:unitid', schema.findById, validateSchema, validateUnitId, methods.findById )
 
 /**
  * @swagger
@@ -105,7 +107,7 @@ router.get( '/:unitid', schema.findById, methods.findById )
  *                       type: object
  */
 
-router.get( '/nombreunidad/:unitname',schema.findByUnitName, methods.findByName )
+router.get( '/nombreunidad/:unitname',schema.findByUnitName,validateSchema, validateFindUnitName, methods.findByName )
 
 /**
  * @swagger
@@ -168,7 +170,7 @@ router.get( '/', methods.findAll )
  *                       type: object
  */
 
-router.put( '/', schema.updateUnit, methods.update )
+router.put( '/', schema.updateUnit, validateSchema, validateUnitName ,methods.update )
 
 /**
  * @swagger
@@ -205,6 +207,6 @@ router.put( '/', schema.updateUnit, methods.update )
  *                       type: object
  */
 
-router.delete( '/', schema.disableUnit, methods.disable )
+router.delete( '/', schema.disableUnit, validateSchema, methods.disable )
 
 export default router
