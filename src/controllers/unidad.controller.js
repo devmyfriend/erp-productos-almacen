@@ -29,7 +29,6 @@ const findAll = async ( req, res ) =>{
 
 const findById = async ( req, res )=>{
     const id = req.params.unitid
-
     try{
 
         const unit = await UnitModel.findByPk( id )
@@ -54,7 +53,7 @@ const findById = async ( req, res )=>{
 
 const findByName = async ( req, res )=>{
     const unitname = req.params.unitname
-
+    
     try{
 
         const unit = await UnitModel.findOne({
@@ -82,11 +81,15 @@ const findByName = async ( req, res )=>{
 const create = async ( req, res ) =>{
     try{
 
-        const { unitname, createdby } = req.body
+        const { NombreUnidad, CreadoPor } = req.body
+
+        
 
         const data = await UnitModel.create({ 
-            NombreUnidad: unitname,
-            CreadoPor: createdby 
+            NombreUnidad,
+            Borrado: false,
+            CreadoPor: CreadoPor,
+            CreadoEn: Date.now()
         })
 
         if( !data ){
@@ -109,18 +112,21 @@ const create = async ( req, res ) =>{
 }
 
 const update = async ( req, res ) =>{
-    const { unitid, unitname, updatedby } = req.body
+    const { UnidadId, NombreUnidad, ActualizadoPor } = req.body
+    
     try{
 
         const data = await UnitModel.update({
-            NombreUnidad: unitname,
-            ActualizadoPor: updatedby,
-            ActaulizadoEn: Date.now()
+            NombreUnidad: NombreUnidad,
+            ActualizadoPor: ActualizadoPor,
+            ActualizadoEn: Date.now()
         },{
             where:{
-                UnidadId: unitid
+                UnidadId: UnidadId
             }
         })
+
+        console.log( data )
 
         if(!data){
             return res.status(400).send({
@@ -142,16 +148,16 @@ const update = async ( req, res ) =>{
 
 const disable = async ( req, res ) =>{
 
-    const { unitid, deletedby }  = req.body
+    const { UnidadId, BorradoPor }  = req.body
 
     try{
 
         const data = await UnitModel.update({
             Borrado: true,
-            BorradoPor: deletedby,
+            BorradoPor: BorradoPor,
             BorradoEn: Date.now()
         },{
-            where: { UnidadId: unitid }
+            where: { UnidadId: UnidadId }
         })
 
         return res.status(200).send({

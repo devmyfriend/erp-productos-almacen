@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { methods } from "../controllers/unidad.controller.js";
+import * as schema from '../schemas/unidades/index.js';
 
 
 const router = Router()
@@ -24,10 +25,6 @@ const router = Router()
  *                schema:
  *                  type: object
  *                  properties:
- *                      UnidadId:
- *                          type: integer
- *                          description: El id de la unidad de medida
- *                          example: 1
  *                      NombreUnidad:
  *                          type: string
  *                          description: El nombre que se le asignara a la  unidad de medida
@@ -50,7 +47,7 @@ const router = Router()
  *                       type: object
  */
 
-router.post('/', methods.create)
+router.post('/', schema.creatUnitSchema, methods.create)
 
 /**
  * @swagger
@@ -79,7 +76,7 @@ router.post('/', methods.create)
  *                       type: object
  */
 
-router.get( '/unitid', methods.findById )
+router.get( '/:unitid', schema.findById, methods.findById )
 
 /**
  * @swagger
@@ -108,7 +105,7 @@ router.get( '/unitid', methods.findById )
  *                       type: object
  */
 
-router.get( '/unitname', methods.findByName )
+router.get( '/nombreunidad/:unitname',schema.findByUnitName, methods.findByName )
 
 /**
  * @swagger
@@ -171,7 +168,7 @@ router.get( '/', methods.findAll )
  *                       type: object
  */
 
-router.put( '/', methods.update )
+router.put( '/', schema.updateUnit, methods.update )
 
 /**
  * @swagger
@@ -208,6 +205,6 @@ router.put( '/', methods.update )
  *                       type: object
  */
 
-router.delete( '/', methods.disable )
+router.delete( '/', schema.disableUnit, methods.disable )
 
 export default router
